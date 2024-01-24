@@ -5,7 +5,6 @@ State your app in a nutshell, or one-sentence pitch. Give some elaboration on wh
 This browser based web application to ... 
 
 ## 2. Names of Contributors
-<<<<<<< HEAD
 Farzad Farzin
 =======
 List team members and/or short bio's here... 
