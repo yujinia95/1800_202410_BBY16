@@ -5,14 +5,11 @@ State your app in a nutshell, or one-sentence pitch. Give some elaboration on wh
 This browser based web application to ... 
 
 ## 2. Names of Contributors
-<<<<<<< HEAD
 Farzad Farzin
-=======
 List team members and/or short bio's here... 
 * Anil Bronson
 * ...
 * ...
->>>>>>> 6fdeff5ae1f20d39a7670fee6c1c7e75bc7559ef
 	
 ## 3. Technologies and Resources Used
 List technologies (with version numbers), API's, icons, fonts, images, media or data sources, and other resources that were used.
