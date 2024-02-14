@@ -6,6 +6,7 @@ This browser based web application to ...
 
 ## 2. Names of Contributors
 List team members and/or short bio's here... 
+<<<<<<< HEAD
 HEAD
 * Yujin Jeong
 * Anil Bronson
@@ -13,6 +14,12 @@ HEAD
 * ...
 * ...
 
+=======
+* ...Yujin Jeong >_<
+* Anil Bronson
+* Farzad Farzingit
+* _Yuho_Lim
+>>>>>>> 61537d4f288f2d9d2347b34c53ea76ff788b9c5c
 	
 ## 3. Technologies and Resources Used
 List technologies (with version numbers), API's, icons, fonts, images, media or data sources, and other resources that were used.
