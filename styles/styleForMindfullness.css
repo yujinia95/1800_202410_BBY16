@@ -1,0 +1,14 @@
+.textAlign1 {
+    text-align: center;
+    margin-top: 30%;
+    padding-bottom: 4%;
+}
+.textAlign2 {
+    text-align: center;
+    padding-bottom: 5%;
+}
+.radioBox {
+    background-color: rgb(7,7,8,0.5);
+    text-align: center;
+    color: white;
+}
