@@ -17,7 +17,13 @@
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
     <!-- Other libraries go here -->
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"/>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>   
     <!-- Link to styles of your own -->
     <link rel="stylesheet" href="./styles/style.css">
 
@@ -27,7 +33,6 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-info">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="images/AM01.jpg" height="36">
                 Freely</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -37,13 +42,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">This is a link to do something later</a>
+                        <a class="nav-link" href="#">About us</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
             </div>
         </div>
     </nav>
@@ -51,20 +52,25 @@
     <!-- Your HTML Layout go here -->
     <!------------------------------>
     <!-- Stuff for body goes here -->    
-    <!-- this is welcome message / Yuho -->
-    <div class="px-4 py-5 my-5 text-center">
-        <img class="d-block mx-auto mb-4" src="./images/image.jpg" alt="" width="72" height="57">
-        <h1 class="display-5 fw-bold">Welcome to mindful media!</h1>
-        <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4">The way you break the bad habit!!!!!</p>
-            <h2>You got this!</h2>
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <button type="button" class="btn btn-info btn-lg px-4 gap-3">Login</button>
-                <button type="button" class="btn btn-primary">Sign up</button>
-            </div>
-        </div>
+    <div class="container">
+        <h1 style="text-align: center; padding-bottom: 1em; padding-top: 1em;">Welcome to Freely!</h1>
     </div>
     
    </body>
+    <div id="firebaseui-auth-container"></div>
+    <div id="loader">Loading...</div>
+    <!-- our own footer goes here-->
+    <nav id="footerPlaceholder"></nav>  
 
+
+
+    <!-- Your own JavaScript functions go here    -->
+    <script src="./scripts/firebaseAPI.js"></script>
+    <script src="./scripts/skeleton.js"></script>
+    <script src="./scripts/authentication.js"></script>
+
+    <footer>    
+        <p>some footer thing here--</p>
+    </footer>
+</body>
 </html>
