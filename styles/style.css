@@ -1,4 +1,7 @@
+nav, footer {
+    background-color: rgba(156, 115, 115, 0.747);
+}
 
-.navbar-light .navbar-brand, .navbar-light .navbar-nav .nav-link {
-    color: #AFC1D6; /* Dark green for brand name & nav links for visibility */
+#login-footer{
+    background-color: white;
 }
