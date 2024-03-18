@@ -41,7 +41,10 @@
         <img class="d-block mx-auto mb-4" src="./images/Happy.jpeg" alt="" width="300" height="200">
         <h1 class="display-4">Good morning, <span id="name-goes-here"></span></h1>
         <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4">The way you break the bad habit!!!!!</p>
+            
+            <!-- where the quote is inputted from the firebase datastore -->
+            <p>Quote of the day: <span id="quote-goes-here"></span> </p>
+            
             <div class="progress">
                 <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0"
                     aria-valuemax="100">25%</div>
@@ -62,7 +65,8 @@
     <!-- JS Functions-->
     <script src="./scripts/firebaseAPI.js"></script>
     <script src="./scripts/skeleton.js"></script>
-    <script src="./scripts/authentication.js"></script>
+    <script src="./scripts/main.js"></script>
+
 </body>
 
 </html>
