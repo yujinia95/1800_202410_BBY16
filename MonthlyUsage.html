@@ -94,7 +94,7 @@
                 legend: { display: false },
                 title: {
                     display: true,
-                    text: "2024 Monthly Avearge Usage"
+                    text: "2024 achievement"
                 },
                 scales: {
                     yAxes: [{
@@ -110,6 +110,7 @@
                         ticks: {
                             beginAtZero: true,
                             callback: function (value, index, values) {
+
                                 return value + 'h'; // Display hours with 'h' suffix
                             }
                         }
