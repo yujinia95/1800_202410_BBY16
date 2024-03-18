@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Report page</title>
+    <meta name="comp1800 template" content="My 1800 App">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./styles/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <!-- Bootstrap Library CSS CDN go here -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Boostrap Library JS CDN  go here -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+    <!-- Other libraries go here -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"/>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>   
+    <!-- Link to styles of your own -->
+    <link rel="stylesheet" href="./styles/style.css">
+    
+    <!-- Your own JavaScript functions go here    -->
+    <script src="./scripts/firebaseAPI.js"></script>
+    <script src="./scripts/skeleton.js"></script>
+    <script src="./scripts/authentication.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Freely</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Setting</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Update</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">User profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="mindfullness_quiz.html">Quizzes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Notifications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ReportMain.html">Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <canvas id="MonthlyUsage" style="width:100%;max-width:600px"></canvas>
+
+
+    <script>
+        const xValues = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JULY", "AUG", "SEP", "OCT", "NOV", "DEC"];
+        const yValues = [125, 100, 110, 80, 56, 35, 0, 0, 0, 0, 0, 0];
+        const barColors = ["lightblue", "lightblue", "lightblue", "lightblue", "lightblue", "lightblue", "lightblue", "lightblue", "lightblue", "lightblue", "lightblue", "lightblue"];
+
+        new Chart("MonthlyUsage", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: "2024 Monthly Avearge Usage"
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false, // Set to false to start from a specific value
+                            min: 0, // Set the minimum value for the y-axis
+                            max: 140
+                        }
+                    }]
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            callback: function (value, index, values) {
+                                return value + 'h'; // Display hours with 'h' suffix
+                            }
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    <p>In past 2 month you managed to lower your usage by 35%. Impressive.</p>
+
+    <footer class="navbar justify-content-evenly fixed-bottom">
+        <div class="container py-3">
+            <span class="material-icons"><i class="bi bi-chat" style="font-size: 1.5em;"></i></span>
+            <span class="material-icons"><i class="bi bi-house" style="font-size: 1.5em;"></i>
+            </span>
+            <span class="material-icons"><i class="bi bi-file-person-fill" style="font-size: 1.5em;"></i></span>
+        </div>
+    </footer>
+    
+</body>
+
+</html>
