@@ -5,3 +5,10 @@ nav, footer {
 #login-footer{
     background-color: white;
 }
+
+button {
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    background-color: rgba(156, 115, 115, 0);
+  }
