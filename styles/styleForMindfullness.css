@@ -6,28 +6,39 @@ nav, footer {
     background-color: white;
 }
 .textAlign1 {
-    text-align: center;
     margin-top: 30%;
     padding-bottom: 4%;
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .textAlign2 {
-    text-align: center;
     padding-bottom: 5%;
-}
-.radioBox {
-    background-color: rgb(7,7,8,0.5);
-    text-align: center;
-    color: white;
-}
-.navbar-toggler {
-    border-color:black;
-}
-.img{
+    font-size: 25px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding-top: 3%;
-    padding-bottom: 2%;
-    border-top: solid 5px grey;
-    border-bottom: solid 5px grey;
+    align-items: center;
+}
+.textAlign3 {
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.list-group-item {
+    text-align: center;
+    font-weight: bold;
+}
+.form-label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+.imageholder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
