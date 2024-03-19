@@ -1,6 +1,3 @@
-console.log("Welcome to diary app. This is app.js");
-showStories();
-
 // If user adds a story, add it to the localStorage
 let addBtn = document.getElementById("addBtn");
 addBtn.addEventListener("click", function (e) {
@@ -61,21 +58,20 @@ function deleteStory(index) {
     showStories();
 }
 
+// let search = document.getElementById('searchTxt');
+// search.addEventListener("input", function () {
 
-let search = document.getElementById('searchTxt');
-search.addEventListener("input", function () {
-
-    let inputVal = search.value.toLowerCase();
-    // console.log('Input event fired!', inputVal);
-    let storyCards = document.getElementsByClassName('noteCard');
-    Array.from(storyCards).forEach(function (element) {
-        let cardTxt = element.getElementsByTagName("p")[0].innerText;
-        if (cardTxt.includes(inputVal)) {
-            element.style.display = "block";
-        }
-        else {
-            element.style.display = "none";
-        }
-        // console.log(cardTxt);
-    })
-})
+//     let inputVal = search.value.toLowerCase();
+//     // console.log('Input event fired!', inputVal);
+//     let storyCards = document.getElementsByClassName('noteCard');
+//     Array.from(storyCards).forEach(function (element) {
+//         let cardTxt = element.getElementsByTagName("p")[0].innerText;
+//         if (cardTxt.includes(inputVal)) {
+//             element.style.display = "block";
+//         }
+//         else {
+//             element.style.display = "none";
+//         }
+//         // console.log(cardTxt);
+//     })
+// })
