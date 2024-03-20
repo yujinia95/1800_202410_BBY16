@@ -41,6 +41,40 @@ getNameFromAuth(); //run the function
 
 // readQuote("evening");
 
+
+//goes into database and grabs a random quote from the database
+function readRandomQuote(day) {
+    db.collection("quotes").doc(day)
+      .get()
+      .then((doc) => {
+          if (doc.exists) {
+              const quotes = [];
+              // Collect all quotes from the document
+              for (let i = 0; i < 4; i++) {
+                  if (doc.data().hasOwnProperty(`quote${i}`)) {
+                      quotes.push(doc.data()[`quote${i}`]);
+                  }
+              }
+              const randomIndex = Math.floor(Math.random() * quotes.length); // Generate a random index
+              const randomQuote = quotes[randomIndex]; // Select a random quote from the array
+              console.log("Random quote of the day:", randomQuote);
+              document.getElementById("quote-goes-here").innerHTML = randomQuote;
+          } else {
+              console.log("No quotes found for", day);
+          }
+      })
+      .catch((error) => {
+          console.log("Error getting quote:", error);
+      });
+}
+
+readRandomQuote("evening");
+readRandomQuote("morning");
+
+
+readRandomQuote("evening");
+// readRandomQuote("morning");
+
 function readQuote(day) {
     db.collection("quotes").doc(day) // Constructing the document ID based on the daytime parameter
       .get() // Fetching the document data
@@ -58,7 +92,6 @@ function readQuote(day) {
           console.log("Error getting quote:", error);
       });
 }
-
-readQuote("evening");
-readQuote("morning");
+// readQuote("evening");
+// readQuote("morning");
 
