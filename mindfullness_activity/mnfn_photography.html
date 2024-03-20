@@ -41,7 +41,7 @@
     <!-- button for entering next page-->
     <div class="d-flex justify-content-center">
         <a href="/mindfullness_activity/mnfn_afterSubmit.html">
-            <button type="button" class="btn btn-outline-secondary">Submit</button>
+            <button type="button" class="btn btn-outline-secondary" id="submitBtn">Submit</button>
         </a>
     </div>
 
@@ -50,8 +50,25 @@
     
 
     <!-- JS connects to skeleton-->
-    <!--<script src="/scripts/skeleton.js"></script>-->
+    <script src="/scripts/skeleton.js"></script>
     <script src="/scripts/mnfn_activity.js"></script>
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', function () {
+            const fileInput = document.getElementById('formFileMultiple');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const photoUrl = e.target.result;
+                    sessionStorage.setItem('photo', photoUrl);
+                    window.location.href = "/mindfullness_activity/mnfn_afterSubmit.html";
+                };
+                reader.readAsDataURL(file); // Start reading the file
+            } else {
+                alert("Please select a file.");
+            }
+        });
+    </script>
 </body>
 
 </html>
