@@ -2,11 +2,12 @@
 <html lang="en">
 
 <head>
+    <title>My BCIT Project</title>
+    <meta name="comp1800 template" content="My 1800 App">
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My BCIT Project</title>
-    <meta name="comp1800 template" content="My 1800 App">
 
     <!-- Bootstrap Library CSS CDN go here -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -16,71 +17,36 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
         </script>
 
-    <!-- Other libraries go here -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-    <script src="./scripts/diary.js"></script>
-
+        <!-- Other libraries go here -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"/>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>   
     <!-- Option 1: Include in HTML -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./styles/style.css">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
     <!-- MDB Rating JavaScript-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    
     <!--rating local-->
     <link rel="stylesheet" href="./styles/rating.css">
 </head>
 
 <body>
+    
+     <!-- nav bar-->
+    <script src="./scripts/navbar.js"></script>
+    <div class="navbar-placeholder"></div>
 
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Freely</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Setting</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Update</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">User profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="mindfullness_quiz.html">Quizzes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Notifications</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="ReportMain.html">Report</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <!-- diary -->
     <div class="container my-4">
         <h1 class="text-center">Reflection</h1>
         <div class="card">
@@ -88,9 +54,10 @@
                 <h5 class="card-title">Embrace your journey</h5>
                 <p class="card-text">Notable moments or challenges?</p>
                 <div class="mb-3">
-                    <textarea class="form-control" id="addTxt" rows="3"></textarea>
+                    <textarea class="form-control" id="addTxt" rows="3" cols="50"></textarea>
                 </div>
-                <a href="#" class="btn btn-primary" id="addBtn">Add Story</a>
+                <a href="#" class="btn btn-primary" id="addBtn" onclick="addStory()">Add Story</a>
+                
                 <!--rating system-->
                 <p class="card-text mt-4">How well did you think you did?</p>
                 <div class="d-flex">
@@ -113,7 +80,12 @@
                         </div>
                     </div>
                 </div>
+
+                <button class="btn btn-secondary" onclik="showStroies()">Show Stories</button>
+                <div id="showStroies"></div>
             </div>
+        </div>    
+            
 
         <!-- Optional JavaScript; choose one of the two! -->
 
@@ -129,20 +101,15 @@
     -->
 
         <!-- footer -->
-        <footer class="navbar justify-content-evenly fixed-bottom">
-            <div class="container py-3">
-                <span class="material-icons"><i class="bi bi-chat" style="font-size: 1.5em;"></i></span>
-                <span class="material-icons"><i class="bi bi-house" style="font-size: 1.5em;"></i>
-                </span>
-                <span class="material-icons"><i class="bi bi-file-person-fill" style="font-size: 1.5em;"></i></span>
-            </div>
-        </footer>
+        <div class="footer-class"></div>
 
         <!-- JS Functions-->
-        <!--<script src="./scripts/firebaseAPI.js"></script>
+        <script src="./scripts/firebaseAPI.js"></script>
         <script src="./scripts/skeleton.js"></script>
-        <script src="./scripts/authentication.js"></script> -->
-        <!-- rating.js file -->
+        <script src="./scripts/authentication.js"></script>
+        <script src="./scripts/footer.js"></script>
+        <scrpit src="./scripts/diary.js"></scrpit>
+        
 </body>
 
 </html>
