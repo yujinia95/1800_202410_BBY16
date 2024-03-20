@@ -1,5 +1,5 @@
 function loadFooter() {
-    fetch('footer.html')
+    fetch('/footer.html')
       .then(response => response.text())
       .then(footerHTML => {
         // Select all elements with the class 'footer-class' and insert the footer content
