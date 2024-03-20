@@ -41,7 +41,6 @@
     </div>
     <!-- button for entering next page-->
     <div class="d-flex justify-content-center">
-        <a href="/mindfullness_activity/mnfn_afterSubmit.html">
             <button type="button" class="btn btn-outline-secondary" id="submitBtn">Submit</button>
         </a>
     </div>
@@ -55,16 +54,14 @@
     <script src="/scripts/mnfn_activity.js"></script>
     <script>
         document.getElementById('submitBtn').addEventListener('click', function () {
-            console.log("before bruce")//💀💀💀
             const fileInput = document.getElementById('formFileMultiple');
             const file = fileInput.files[0];
-            console.log("after bruce")
             if (file) {
                 const reader = new FileReader();
-                console.log("before bruceeeeeeeeeeeee")
                 reader.onload = function (e) {
-                    const photoUrl = encodeURIComponent(e.target.result);
-                    window.location.href = "./mnfn_afterSubmit.html?photo=" + photoUrl;
+                    const photoUrl = e.target.result;
+                    sessionStorage.setItem('photo', photoUrl);
+                    window.location.href = "/mindfullness_activity/mnfn_afterSubmit.html";
                 };
                 reader.readAsDataURL(file); // Start reading the file
             } else {
