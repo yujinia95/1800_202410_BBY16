@@ -21,22 +21,7 @@ loadSkeleton(); //invoke the function
 
 
 // Function to load and display the navbar
-function loadNavbar() {
-    fetch('nav-before-login.html')
-      .then(response => response.text())
-      .then(navbarHTML => {
-        // Assuming there's a placeholder element with the id 'navbar-placeholder' in login.html
-        document.getElementById('navbar-placeholder') = navbarHTML;
-      })
-      .catch(error => console.error('Error loading navbar:', error));
-  }
-  
-  // Call the function when the window loads
-  window.addEventListener('load', loadNavbar);
 
-function homeFunction(){
-    window.location.href = "main.html"
-}
 function personalFunction(){
 
 }
