@@ -1,0 +1,10 @@
+body{
+margin: 0px;
+padding: 0px;
+}
+button{
+    background-color: #004d61;
+}
+.nav{
+display: inline;
+}
