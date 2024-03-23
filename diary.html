@@ -64,7 +64,7 @@
                 <div class="d-flex">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="stars">
+                            <div class="stars" id="stars">
                                 <form action="">
                                     <input class="star star-5" id="star-5" type="radio" name="star" />
                                     <label class="star star-5" for="star-5"></label>
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="./diarythanks.html" class="btn btn-primary" id="addBtn" onclick="addStory()">Add Story</a>
+                <a href="./diarythanks.html" class="btn btn-primary" id="addBtn" onclick="addStory(), getRating()">Add Story</a>
                 <a href="./diarylist.html" class="btn btn-primary" id="checkStories" onclik="showStroies()">Show Stories</a>
                 <div id="showStroies"></div>
                 <!--rating system-->

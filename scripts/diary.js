@@ -2,6 +2,10 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase.auth';
 import 'firebase/firestore';
 import { getStorage } from "firebase/storage";
+import { doc, getDoc } from "firebase/firestore";
+
+const docRef = doc(db, "cities", "SF");
+const docSnap = await getDoc(docRef);
 
 // Initialize Firebase
 var firebaseConfig = {
@@ -13,92 +17,110 @@ var firebaseConfig = {
     appId: "1:1016028029476:web:8d3cc0437c5b2eb4d22eb1",
     measurementId: "G-2BD88FFZY9"
 };
+
 firebase.initializeApp(firebaseConfig);
 
-// Reference to Firestore database
-var db = firebase.firestore();
+function addStory() {
+    // Reference to Firestore database
+    var db = firebase.firestore();
 
-// If user adds a story, add it to Firestore
-let addBtn = document.getElementById("addBtn");
-addBtn.addEventListener("click", function (e) {
-    let addTxt = document.getElementById("addTxt");
+    // If user adds a story, add it to Firestore
+    let addBtn = document.getElementById("addBtn");
+    addBtn.addEventListener("click", function (e) {
+        let addTxt = document.getElementById("addTxt");
 
-    // Get the current date and time
-    let currentDate = new Date();
+        // Get the current date and time
+        let currentDate = new Date();
 
-    // Add the story to Firestore
-    db.collection("diaries").add({
-        content: addTxt.value,
-        
-        timestamp: firebase.firestore.Timestamp.fromDate(currentDate)
-    })
-        .then(function (docRef) {
-            console.log("Document written with ID: ", docRef.id);
-            addTxt.value = ""; // Clear input field after adding
-            showStories();
+        // Add the story to Firestore
+        db.collection("diaries").add({
+            content: addTxt.value,
+            content: stars.value, // I added this code for the star.
+
+            timestamp: firebase.firestore.Timestamp.fromDate(currentDate)
         })
-        .catch(function (error) {
-            console.error("Error adding document: ", error);
-        });
-});
-
-// Function to display stories from Firestore
-function showStories() {
-    // You can implement this function to retrieve stories from Firestore
-    // and display them on your webpage
-}
-
-
-function writeStories() {
-    console.log("inside write diaries");
-    let hikeTitle = document.getElementById("title").value;
-    let hikeLevel = document.getElementById("level").value;
-    let hikeSeason = document.getElementById("season").value;
-    let hikeDescription = document.getElementById("description").value;
-    let hikeFlooded = document.querySelector('input[name="flooded"]:checked').value;
-    let hikeScrambled = document.querySelector('input[name="scrambled"]:checked').value;
-
-    // Get the star rating
-		// Get all the elements with the class "star" and store them in the 'stars' variable
-    const stars = document.querySelectorAll('.star');
-		// Initialize a variable 'hikeRating' to keep track of the rating count
-    let hikeRating = 0;
-		// Iterate through each element in the 'stars' NodeList using the forEach method
-    stars.forEach((star) => {
-				// Check if the text content of the current 'star' element is equal to the string 'star'
-        if (star.textContent === 'star') {
-						// If the condition is met, increment the 'hikeRating' by 1
-            hikeRating++;
-        }
+            .then(function (docRef) {
+                console.log("Document written with ID: ", docRef.id);
+                addTxt.value = ""; // Clear input field after adding
+                stars.value = ""; // Clear the stars...........................
+                showStories();
+            })
+            .catch(function (error) {
+                console.error("Error adding document: ", error);
+            });
     });
 
-    console.log(hikeTitle, hikeLevel, hikeSeason, hikeDescription, hikeFlooded, hikeScrambled, hikeRating);
+    // Function to display stories from Firestore
+    function showStories() {
+        // Reference to Firestore database
+        var db = firebase.firestore();
 
-    var user = firebase.auth().currentUser;
-    if (user) {
-        var currentUser = db.collection("users").doc(user.uid);
-        var userID = user.uid;
+        // Reference to the collection "diaries"
+        var diariesRef = db.collection("diaries");
 
-        // Get the document for the current user.
-        db.collection("reviews").add({
-            hikeDocID: hikeDocID,
-            userID: userID,
-            title: hikeTitle,
-            level: hikeLevel,
-            season: hikeSeason,
-            description: hikeDescription,
-            flooded: hikeFlooded,
-            scrambled: hikeScrambled,
-            rating: hikeRating, // Include the rating in the review
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        }).then(() => {
-            window.location.href = "thanks.html"; // Redirect to the thanks page
+        // Reference to the div where you display stories
+        var storiesDiv = document.getElementById("addTxt");
+
+        // Clear previous entries before adding new ones
+        while (storiesDiv.firstChild) {
+            storiesDiv.removeChild(storiesDiv.firstChild);
+        }
+        // Get all documents from the "diaries" collection
+        diariesRef.get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                // For each document, retrieve data and display it
+                let diaryData = doc.data();
+                console.log("Diary ID: ", doc.id);
+                console.log("Content: ", addTxt.value.content);
+                console.log("Timestamp: ", diaryData.timestamp.toDate());
+                // Assuming you have a field named "rating" in your document
+                console.log("Rating: ", diaryData.rating);
+
+                // Here you can display the retrieved data on your webpage
+            });
+        }).catch((error) => {
+            console.error("Error getting documents: ", error);
         });
-    } else {
-        console.log("No user is signed in");
-        window.location.href = 'review.html';
     }
 }
+
+// Function to get the selected rating
+// function getRating() {
+//     var rating = 0;
+//     var stars = document.getElementsByName('star');
+
+//     // Loop through all the stars to find the selected one
+//     for (var i = 0; i < stars.length; i++) {
+//         if (stars[i].checked) {
+//             rating = parseInt(stars[i].id.split('-')[1]); // Get the numeric value of the selected star
+//             break; // Exit the loop once a star is found
+//         }
+//     }
+
+//     return rating;
+// }
+
+// // Function to add a story
+// function addStory() {
+//     var storyText = document.getElementById("addTxt").value;
+//     var rating = getRating(); // Get the selected rating
+
+//     // Add the story to Firebase Firestore
+//     db.collection("diaryEntries").add({
+//         text: storyText,
+//         rating: rating
+//     })
+//     .then(function(docRef) {
+//         console.log("Document written with ID: ", docRef.id);
+//         document.getElementById("addTxt").value = ""; // Clear the text area after adding the story
+//         // Optionally, you can show a success message or perform other actions here
+//     })
+//     .catch(function(error) {
+//         console.error("Error adding document: ", error);
+//         // Handle errors here
+//     });
+// }
+
 
 
 
@@ -115,11 +137,11 @@ function writeStories() {
 //         timestamp: firebase.firestore.FieldValue.serverTimestamp()
 //     })
 
-    // .then(function(docRef) {
-    //   console.log("Diary entry written with ID: ", docRef.id);
-    //   // Optionally, display a success message or clear the form
-    // })
-    // .catch(function(error) {
-    //   console.error("Error adding diary entry: ", error);
-    // });
+// .then(function(docRef) {
+//   console.log("Diary entry written with ID: ", docRef.id);
+//   // Optionally, display a success message or clear the form
+// })
+// .catch(function(error) {
+//   console.error("Error adding diary entry: ", error);
+// });
 // });
