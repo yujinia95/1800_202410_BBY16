@@ -4,7 +4,16 @@ padding: 0px;
 }
 button{
     background-color: #004d61;
+    margin: 10px;
 }
 .nav{
-display: inline;
+display: flex;
+padding: 5px 10px;
+box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.2);}
+
+.profile-pic{
+    border-radius: 50%;
+    width: 300px;
+    background-image: url(./images/Happy.jpeg);
+    background-size: cover;
 }
