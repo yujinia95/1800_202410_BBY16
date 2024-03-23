@@ -12,3 +12,21 @@ button {
     text-decoration: none;
     background-color: rgba(156, 115, 115, 0);
   }
+
+  .rounded-image {
+    border-radius: 50%; /* Make it round */
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 4px; /* Add a bottom margin */
+}   
+
+body {
+    background-color: #eeca84;
+  font-family: "Fraunces", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings:
+    "SOFT" 0,
+    "WONK" 0;
+}
