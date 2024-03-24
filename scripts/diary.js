@@ -1,30 +1,3 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from 'firebase.auth';
-import 'firebase/firestore';
-import { getStorage } from "firebase/storage";
-import { doc, getDoc } from "firebase/firestore";
-
-const docRef = doc(db, "cities", "SF");
-const docSnap = await getDoc(docRef);
-const app = firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-const auth = firebase.auth();
-const storage = firebase.storage();
-const userinfo = auth.currentUser;
-
-// Initialize Firebase
-var firebaseConfig = {
-    apiKey: "AIzaSyBpuwWSDIrtySZXDZFZOTsfwOrZTEqYQKA",
-    authDomain: "comp1800-project-e4999.firebaseapp.com",
-    projectId: "comp1800-project-e4999",
-    storageBucket: "comp1800-project-e4999.appspot.com",
-    messagingSenderId: "1016028029476",
-    appId: "1:1016028029476:web:8d3cc0437c5b2eb4d22eb1",
-    measurementId: "G-2BD88FFZY9"
-};
-
-firebase.initializeApp(firebaseConfig);
-
 function addStory() {
     // Reference to Firestore database
     var db = firebase.firestore();
