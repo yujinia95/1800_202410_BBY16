@@ -2,10 +2,11 @@ body{
 margin: 0px;
 padding: 0px;
 }
-button{
+#back{
     background-color: #004d61;
     margin: 10px;
 }
+
 .nav{
 display: flex;
 padding: 5px 10px;
@@ -13,10 +14,16 @@ box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.2);}
 
 img{
     border-radius: 50%;
-    width: auto;
-    height: auto;
+    width: 10vh;
+    height: 10vh;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 20px; /* Adjust the value as needed */
+    padding-top: 20px;
+}
+
+#logout{
+    padding: 10px;
+    margin: 10px;
+    background-color: #eeca84;
 }

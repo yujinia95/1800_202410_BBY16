@@ -20,13 +20,15 @@
 
 <body>
     <div class="nav">
-        <button onclick="(homeFunction())"> ></button>
+        <button onclick="(homeFunction())" id="back"> ></button>
         <p>back to home</p>
     </div>
     <div class="container">
         <div class="profile-pic">
-            <img src="/images/profile-picutr.jpg" alt="">
+            <img src="/images/profile-picutr.jpg" alt="profile">
+            <span id="name-goes-here"></span>
         </div>
+        <button onclick="logOut()" id="logout">logout</button>
     </div>
 
 
@@ -34,6 +36,7 @@
     <script src="./scripts/firebaseAPI.js"></script>
     <script src="./scripts/skeleton.js"></script>
     <script src="./scripts/footer.js"></script>
+    <script src="./scripts/main.js"></script>
 </body>
 
 </html>

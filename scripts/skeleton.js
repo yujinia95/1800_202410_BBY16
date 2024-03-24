@@ -1,12 +1,16 @@
 function profileFunction(){
-    window.location.href = 'profile.html'
+    window.location.href = '/profile.html'
 }
 
 function homeFunction(){
-    window.location.href = 'main.html'
+    window.location.href = '/main.html'
 }
 
 function diaryFunction(){
-    window.location.href = 'diary.html'
+    window.location.href = '/diary.html'
 
+}
+
+function logOut(){
+    window.location.href = 'login.html'
 }
