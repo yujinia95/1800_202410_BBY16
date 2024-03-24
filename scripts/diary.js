@@ -6,6 +6,11 @@ import { doc, getDoc } from "firebase/firestore";
 
 const docRef = doc(db, "cities", "SF");
 const docSnap = await getDoc(docRef);
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const auth = firebase.auth();
+const storage = firebase.storage();
+const userinfo = auth.currentUser;
 
 // Initialize Firebase
 var firebaseConfig = {
