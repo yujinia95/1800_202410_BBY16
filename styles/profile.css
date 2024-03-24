@@ -10,7 +10,9 @@ padding: 0px;
 .nav{
 display: flex;
 padding: 5px 10px;
-box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.2);}
+box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.2);
+}
+
 
 img{
     border-radius: 50%;
@@ -21,6 +23,18 @@ img{
     margin-right: auto;
     padding-top: 20px;
 }
+
+span{
+    padding: 10px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.profile-pic{
+    text-align: center;
+}
+
+
 
 #logout{
     padding: 10px;
