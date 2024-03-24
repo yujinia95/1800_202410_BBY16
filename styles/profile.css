@@ -2,18 +2,42 @@ body{
 margin: 0px;
 padding: 0px;
 }
-button{
+#back{
     background-color: #004d61;
     margin: 10px;
 }
+
 .nav{
 display: flex;
 padding: 5px 10px;
-box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.2);}
+box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+img{
+    border-radius: 50%;
+    width: 10vh;
+    height: 10vh;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+}
+
+span{
+    padding: 10px;
+    font-size: large;
+    font-weight: bold;
+}
 
 .profile-pic{
-    border-radius: 50%;
-    width: 300px;
-    background-image: url(./images/Happy.jpeg);
-    background-size: cover;
+    text-align: center;
+}
+
+
+
+#logout{
+    padding: 10px;
+    margin: 10px;
+    background-color: #eeca84;
 }
