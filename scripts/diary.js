@@ -6,6 +6,7 @@ function addStory() {
     let addBtn = document.getElementById("addBtn");
     addBtn.addEventListener("click", function (e) {
         let addTxt = document.getElementById("addTxt");
+        let stars = document.querySelector('input[name="star":checked')
 
         // Get the current date and time
         let currentDate = new Date();
@@ -13,54 +14,79 @@ function addStory() {
         // Add the story to Firestore
         db.collection("diaries").add({
             content: addTxt.value,
-            content: stars.value, // I added this code for the star.
+            rating: stars ? stars.value : null, // Assign rating if a star is selected
 
             timestamp: firebase.firestore.Timestamp.fromDate(currentDate)
         })
             .then(function (docRef) {
-                console.log("Document written with ID: ", docRef.id);
                 addTxt.value = ""; // Clear input field after adding
-                stars.value = ""; // Clear the stars...........................
-                showStories();
+                if (stars) {
+                    stars.checked = false; // Clear the selected star
+                }
+                window.location.href = "./diarythanks.html"; // Redirect to diarythanks.html
             })
             .catch(function (error) {
                 console.error("Error adding document: ", error);
             });
     });
-
-    // Function to display stories from Firestore
-    function showStories() {
-        // Reference to Firestore database
-        var db = firebase.firestore();
-
-        // Reference to the collection "diaries"
-        var diariesRef = db.collection("diaries");
-
-        // Reference to the div where you display stories
-        var storiesDiv = document.getElementById("addTxt");
-
-        // Clear previous entries before adding new ones
-        while (storiesDiv.firstChild) {
-            storiesDiv.removeChild(storiesDiv.firstChild);
-        }
-        // Get all documents from the "diaries" collection
-        diariesRef.get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                // For each document, retrieve data and display it
-                let diaryData = doc.data();
-                console.log("Diary ID: ", doc.id);
-                console.log("Content: ", addTxt.value.content);
-                console.log("Timestamp: ", diaryData.timestamp.toDate());
-                // Assuming you have a field named "rating" in your document
-                console.log("Rating: ", diaryData.rating);
-
-                // Here you can display the retrieved data on your webpage
-            });
-        }).catch((error) => {
-            console.error("Error getting documents: ", error);
-        });
-    }
 }
+
+// function addStory() {
+//     const diaryText = document.getElementById('addTxt').value;
+  
+//     // Check if diaryText is not empty
+//     if (diaryText.trim() !== '') {
+//       db.collection("diary").add({
+//           story: diaryText,
+//           rating: getRating() // Assuming getRating() function retrieves the rating
+//         })
+//         .then(function(docRef) {
+//           console.log("Document written with ID: ", docRef.id);
+//           // Redirect to the next page after saving the story
+//           window.location.href = "./diarythanks.html";
+//         })
+//         .catch(function(error) {
+//           console.error("Error adding document: ", error);
+//         });
+//     } else {
+//       alert("Diary text cannot be empty!");
+//     }
+//   }
+
+
+//     // Function to display stories from Firestore
+//     function showStories() {
+//         // Reference to Firestore database
+//         var db = firebase.firestore();
+
+//         // Reference to the collection "diaries"
+//         var diariesRef = db.collection("diaries");
+
+//         // Reference to the div where you display stories
+//         var storiesDiv = document.getElementById("addTxt");
+
+//         // Clear previous entries before adding new ones
+//         while (storiesDiv.firstChild) {
+//             storiesDiv.removeChild(storiesDiv.firstChild);
+//         }
+//         // Get all documents from the "diaries" collection
+//         diariesRef.get().then((querySnapshot) => {
+//             querySnapshot.forEach((doc) => {
+//                 // For each document, retrieve data and display it
+//                 let diaryData = doc.data();
+//                 console.log("Diary ID: ", doc.id);
+//                 console.log("Content: ", addTxt.value.content);
+//                 console.log("Timestamp: ", diaryData.timestamp.toDate());
+//                 // Assuming you have a field named "rating" in your document
+//                 console.log("Rating: ", diaryData.rating);
+
+//                 // Here you can display the retrieved data on your webpage
+//             });
+//         }).catch((error) => {
+//             console.error("Error getting documents: ", error);
+//         });
+//     }
+// }
 
 // Function to get the selected rating
 // function getRating() {
