@@ -61,15 +61,15 @@
                         <div class="col-md-12">
                             <div class="stars" id="stars">
                                 <form action="">
-                                    <input class="star star-5" id="star-5" type="radio" name="star" />
+                                    <input class="star star-5" id="star-5" type="radio" name="star" data-base="5"/>
                                     <label class="star star-5" for="star-5"></label>
-                                    <input class="star star-4" id="star-4" type="radio" name="star" />
+                                    <input class="star star-4" id="star-4" type="radio" name="star" data-base="4"/>
                                     <label class="star star-4" for="star-4"></label>
-                                    <input class="star star-3" id="star-3" type="radio" name="star" />
+                                    <input class="star star-3" id="star-3" type="radio" name="star" data-base="3"/>
                                     <label class="star star-3" for="star-3"></label>
-                                    <input class="star star-2" id="star-2" type="radio" name="star" />
+                                    <input class="star star-2" id="star-2" type="radio" name="star" data-base="2"/>
                                     <label class="star star-2" for="star-2"></label>
-                                    <input class="star star-1" id="star-1" type="radio" name="star" />
+                                    <input class="star star-1" id="star-1" type="radio" name="star" data-base="1"/>
                                     <label class="star star-1" for="star-1"></label>
                                 </form>
                             </div>
@@ -77,8 +77,8 @@
                     </div>
                 </div>
                 <a class="btn btn-primary" id="addBtn">Add Story</a>
-                <a href="diarylist" class="btn btn-primary" id="checkStories" onclik="showStroies()">Show Stories</a>
-                <div id="showStroies"></div>
+                <a class="btn btn-primary" id="checkStories">Show Stories</a>
+                <div id="showStories"></div>
                 <!--rating system-->
                 
             </div>
@@ -102,12 +102,11 @@
         <div class="footer-class"></div>
 
         <!-- JS Functions-->
-        <!-- <script src="./scripts/firebaseAPI.js"></script> -->
+        <script src="./scripts/firebaseAPI.js"></script>
         <script src="./scripts/skeleton.js"></script>
         <script src="./scripts/authentication.js"></script>
-        <script src="./firebaseAPI.js"></script>
         <script src="./scripts/footer.js"></script>
-        <scrpit src="./scripts/diary.js"></scrpit>
+        <script src="./scripts/diary.js"></script>
 </body>
 
 </html>
