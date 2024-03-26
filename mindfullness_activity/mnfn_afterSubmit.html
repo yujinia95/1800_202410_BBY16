@@ -60,7 +60,68 @@
     <!-- Your own JavaScript functions go here    -->
     <script src="/scripts/firebaseAPI.js"></script>
     <script src="/scripts/footer.js"></script>
-    <script src="/scripts/mnfn_afteractivity.js"></script>
+    <!--<script src="/scripts/mnfn_afteractivity.js"></script>-->
+    <script>
+    /*function displayUploadedPhoto() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const imageDataUrl = urlParams.get('image');
+        if (imageDataUrl) {
+            const photoContainer = document.getElementById('photoContainer');
+            const imgElement = document.createElement('img');
+            imgElement.src = imageDataUrl;
+            imgElement.classList.add('img-fluid'); // For Bootstrap responsiveness
+            photoContainer.appendChild(imgElement);
+        } else {
+            console.error('No image data found in URL');
+        }
+    }
+    // Call the displayUploadedPhoto function when the page loads
+    window.onload = displayUploadedPhoto;*/
+
+
+
+
+
+        /*// Function to retrieve and display the uploaded image
+        function displayUploadedPhoto() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const imageDataUrl = urlParams.get('image');
+            if (imageDataUrl) {
+                const photoContainer = document.getElementById('photoContainer');
+                const imgElement = document.createElement('img');
+                imgElement.src = imageDataUrl;
+                imgElement.classList.add('img-fluid'); // For Bootstrap responsiveness
+                photoContainer.appendChild(imgElement);
+            } else {
+                console.error('No image data found in URL');
+            }
+        }
+        // Call the displayUploadedPhoto function when the page loads
+        window.onload = displayUploadedPhoto; */
+        // Function to retrieve and display the reading image
+function retrieveReadingImage() {
+    const imageRef = db.collection('userExperience').doc('reading');
+
+    imageRef.get().then((doc) => {
+        if(doc.exists) {
+            const imageUrl = doc.data().imageUrl;
+
+            const imageContainer = document.getElementById('photoContainer');
+            imageContainer.innerHTML = '';
+            const imageElement = document.createElement('img');
+            imageElement.src = imageUrl;
+            imageElement.style.width = '300px';
+            imageElement.style.height = '200px';
+            imageContainer.appendChild(imageElement);
+        } else {
+            console.log("No reading document found!");
+        }
+    }).catch((error) => {
+        console.log("Error getting reading document: ", error);
+    });
+}
+retrieveReadingImage()
+    </script>
 </body>
 
 </html>

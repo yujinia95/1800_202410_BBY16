@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
     // Function to retrieve and display the image for the specified activity
     function retrieveImage(activity) {
         const imageContainer = document.getElementById('photoContainer');
@@ -42,11 +42,10 @@ document.addEventListener('DOMContentLoaded', function () {
     retrieveImage('painting');
     retrieveImage('exercise');
     retrieveImage('cooking');
-    retrieveImage('adventure');
+    retrieveImage('adventure');*/
 
     // Function to handle the "No, enough for today" button click
     function myFunction() {
         alert("Going back to the main page");
         window.location.href = "/main.html";
     }
-});
