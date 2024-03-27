@@ -1,37 +1,39 @@
-    // Function to get the selected rating
-    function getRating() {
-        var rating = 0;
-        var stars = document.getElementsByName('star');
+var DiaryDocID = localStorage.getItem("DiaryID");    //visible to all functions on this page
 
-        // Loop through all the stars to find the selected one
-        for (var i = 0; i < stars.length; i++) {
-            if (stars[i].checked) {
-                rating = parseInt(stars[i].id.split('-')[1]); // Get the numeric value of the selected star
-                break; // Exit the loop once a star is found
-            }
+function writeDiary() {
+    console.log("inside write review");
+    let DiaryEntry = document.getElementById("addTxt").value;
+    // Get the star rating
+		// Get all the elements with the class "star" and store them in the 'stars' variable
+    const stars = document.querySelectorAll('.star');
+		// Initialize a variable 'hikeRating' to keep track of the rating count
+    let DiaryRating = 0;
+		// Iterate through each element in the 'stars' NodeList using the forEach method
+    stars.forEach((star) => {
+				// Check if the text content of the current 'star' element is equal to the string 'star'
+        if (star.textContent === 'star') {
+						// If the condition is met, increment the 'hikeRating' by 1
+            DiaryRating++;
         }
+    });
 
-        return rating;
-    }
+    console.log(DiaryEntry);
 
-    // Function to add a story
-    function addStory() {
-        var storyText = document.getElementById("addTxt").value;
-        var rating = getRating(); // Get the selected rating
+    var user = firebase.auth().currentUser;
+    if (user) {
+        var currentUser = db.collection("users").doc(user.uid);
+        var userID = user.uid;
 
-        // Add the story to Firebase Firestore
+        // Get the document for the current user.
         db.collection("diaries").add({
-            text: storyText,
-            rating: rating
-        })
-        .then(function(docRef) {
-            console.log("Document written with ID: ", docRef.id);
-            document.getElementById("addTxt").value = ""; // Clear the text area after adding the story
-            // Optionally, you can show a success message or perform other actions here
-        })
-        .catch(function(error) {
-            console.error("Error adding document: ", error);
-            // Handle errors here
+            DiaryDocID: DiaryDocID,
+            rating: DiaryRating, // Include the rating in the review
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(() => {
+            window.location.href = "thanks.html"; // Redirect to the thanks page
         });
+    } else {
+        console.log("No user is signed in");
+        window.location.href = 'review.html';
     }
-
+}
