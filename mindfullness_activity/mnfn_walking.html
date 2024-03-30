@@ -59,7 +59,7 @@
     <script src="/scripts/footer.js"></script>
     <script src="/scripts/skeleton.js"></script>
     <script>//Uploading Image in Firestore for walking activity
-        function uploadImageAndNavigateToNext1() {
+        /*function uploadImageAndNavigateToNext1() {
             const fileInput = document.getElementById('formFileMultiple1');
             const file = fileInput.files[0];
 
@@ -93,7 +93,27 @@
                 console.error("No fiel selected");
             }
         }
-        document.getElementById('submitBtn').addEventListener('click', uploadImageAndNavigateToNext1);</script>
+        document.getElementById('submitBtn').addEventListener('click', uploadImageAndNavigateToNext1);*/
+        </script>
+        <script>
+            function navigateToNextPageWithImage() {
+                const fileInput = document.getElementById('formFileMultiple1');
+                const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                const imageDataUrl = event.target.result;
+                const nextPageUrl = `/mindfullness_activity/mnfn_afterSubmit.html?image=${encodeURIComponent(imageDataUrl)}`;
+                window.location.href = "/mindfullness_activity/mnfn_afterSubmit.html";
+            };
+            reader.readAsDataURL(file);
+    } else {
+        console.error("No file selected");
+    }
+}
+document.getElementById('submitBtn').addEventListener('click', navigateToNextPageWithImage);
+        </script>
 </body>
 
 </html>
