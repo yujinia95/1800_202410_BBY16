@@ -10,6 +10,13 @@
     <!-- Bootstrap Library CSS CDN go here -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Firestore JS CDN  go here -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <!-- Boostrap Library JS CDN  go here -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
@@ -17,97 +24,210 @@
     <!-- stylesheet from bootstrap-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <!-- stylesheet-->
-    <link rel="stylesheet" href="/styles/styleForMindfullness.css">
     <link rel="stylesheet" href="/styles/style.css">
 
 </head>
 
+<style>
+    .textAlign1 {
+        margin-top: 10%;
+        padding-bottom: 4%;
+        font-size: 28px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .list-group-item {
+        text-align: center;
+        font-weight: bold;
+        margin-left: 32%;
+    }
+
+    .form-check {
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 10px;
+    }
+</style>
+
 <body>
-       <!-- nav bar-->
-       <script src="/scripts/navbar.js"></script>
-       <div class="navbar-placeholder"></div>
+    <!-- nav bar-->
+    <script src="/scripts/navbar.js"></script>
+    <div class="navbar-placeholder"></div>
 
     <!-- Header for choosing activity-->
     <h1 class="textAlign1"> Daily challenge</h1>
 
     <!-- Activity List-->
-    <form id="myForm">
-    <ul class="list-group">
-        <li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="/mindfullness_activity/mnfn_walking.html" id="firstRadio">
-            <label class="form-check-label" for="firstRadio">Mindful Walking </label>
-        </li>
-        <li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="/mindfullness_activity/mnfn_adventure.html" id="secondRadio">
-            <label class="form-check-label" for="secondRadio">Adventure new cafe & restaurant</label>
-        </li>
-        <li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="/mindfullness_activity/mnfn_painting.html" id="thirdRadio">
-            <label class="form-check-label" for="thirdRadio">Painting</label>
-        </li>
-        <li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="/mindfullness_activity/mnfn_photography.html" id="fourthRadio">
-            <label class="form-check-label" for="fourthRadio">Photography</label>
-        </li>
-        <li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="/mindfullness_activity/mnfn_cooking.html" id="fifthRadio">
-            <label class="form-check-label" for="fifthRadio">Cooking & Baking</label>
-        </li>
-        <li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="/mindfullness_activity/mnfn_reading.html" id="sixthRadio">
-            <label class="form-check-label" for="sixthRadio">Reading</label>
-        </li>
-        <li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="/mindfullness_activity/mnfn_exercise.html" id="seventhRadio">
-            <label class="form-check-label" for="seventhRadio">Exercise</label>
-        </li>
-        <li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="/mindfullness_activity/mnfn_puzzles.html" id="eighthRadio">
-            <label class="form-check-label" for="eighthRadio">Puzzles</label>
-        </li>
-    </ul>
+
+    <form id="myForm" class="list-group-item">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                value="/mindfullness_activity/mnfn_walking.html" id="flexCheckChecked1" id="firstRadio">
+            <label class="form-check-label" for="flexCheckChecked1">
+                Mindful Walking
+            </label>
+
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                value="/mindfullness_activity/mnfn_adventure.html" id="flexCheckChecked2" id="secondRadio">
+            <label class="form-check-label" for="flexCheckChecked2">
+                Adventure new cafe & restaurant
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                value="/mindfullness_activity/mnfn_painting.html" id="flexCheckChecked3" id="thirdRadio">
+            <label class="form-check-label" for="flexCheckChecked3">
+                Painting
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                value="/mindfullness_activity/mnfn_photography.html" id="flexCheckChecked4" id="fourthRadio">
+            <label class="form-check-label" for="flexCheckChecked4">
+                Photography
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                value="/mindfullness_activity/mnfn_cooking.html" id="flexCheckChecked5" id="fifthRadio">
+            <label class="form-check-label" for="flexCheckChecked5">
+                Cooking & Baking
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                value="/mindfullness_activity/mnfn_reading.html" id="flexCheckChecked6" id="sixthRadio">
+            <label class="form-check-label" for="flexCheckChecked6">
+                Reading
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                value="/mindfullness_activity/mnfn_exercise.html" id="flexCheckChecked7" id="seventhRadio">
+            <label class="form-check-label" for="flexCheckChecked7">
+                Exercise
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                value="/mindfullness_activity/mnfn_puzzles.html" id="flexCheckChecked8" id="eighthRadio">
+            <label class="form-check-label" for="flexCheckChecked8">
+                Puzzles
+            </label>
+        </div>
+        <!-- Have to make an website -->
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                value="/mindfullness_activity/mnfn_watching_movie.html" id="flexCheckChecked9" id="ninthRadio">
+            <label class="form-check-label" for="flexCheckChecked9">
+                Watching Movie
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                value="/mindfullness_activity/mnfn_volunteer.html" id="flexCheckChecked10" id="tenthRadio">
+            <label class="form-check-label" for="flexCheckChecked10">
+                Volunteer
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                value="/mindfullness_activity/mnfn_visit_family.html" id="flexCheckChecked11" id="eleventhRadio">
+            <label class="form-check-label" for="flexCheckChecked11">
+                Visit a family
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                value="/mindfullness_activity/mnfn_meditation.html" id="flexCheckChecked12" id="twelfthRadio">
+            <label class="form-check-label" for="flexCheckChecked12">
+                Meditation
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                value="/mindfullness_activity/mnfn_discover_music.html" id="flexCheckChecked13" id="thirteenthRadio">
+            <label class="form-check-label" for="flexCheckChecked13">
+                Discover favourite music
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                value="/mindfullness_activity/mnfn_exhibition.html" id="flexCheckChecked14" id="fourteenthRadio">
+            <label class="form-check-label" for="flexCheckChecked14">
+                Exhibition
+            </label>
+        </div>
+    </form>
+
     <br>
     <!-- Initiate activity button-->
     <div class="d-flex justify-content-center">
-            <button type="button" class="btn btn-outline-secondary" id="lezChallenge">Let's challenge</button>
+        <button type="button" class="btn btn-outline-secondary" id="lezChallenge">Let's challenge</button>
     </div>
-</form>
-
-
+    </form>
 
     <!-- footer -->
 
     <div class="footer-class"></div>
 
-
     <!-- JS connects to skeleton-->
+    <script src="/scripts/FirebaseAPI.js"></script>
+        <script src="/scripts/authentication.js"></script>
     <script src="/scripts/footer.js"></script>
     <script src="/scripts/skeleton.js"></script>
     <script>
-    //This is the button process, to make if user press button, nevigates to next website    
-    function processForm(){
-    document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("lezChallenge").addEventListener("click", function (){
-        if(document.getElementById("firstRadio").checked)
-           { window.location.href = "/mindfullness_activity/mnfn_walking.html";
-        }else if(document.getElementById("secondRadio").checked)
-            window.location.href = "/mindfullness_activity/mnfn_adventure.html";
-        else if(document.getElementById("thirdRadio").checked)
-            window.location.href = "/mindfullness_activity/mnfn_painting.html";
-        else if(document.getElementById("fourthRadio").checked)
-            window.location.href = "/mindfullness_activity/mnfn_photography.html";
-        else if(document.getElementById("fifthRadio").checked)
-            window.location.href = "/mindfullness_activity/mnfn_cooking.html";
-        else if(document.getElementById("sixthRadio").checked)
-            window.location.href = "/mindfullness_activity/mnfn_reading.html";
-        else if(document.getElementById("seventhRadio").checked)
-            window.location.href = "/mindfullness_activity/mnfn_exercise.html";
-        else if(document.getElementById("eighthRadio").checked)
-            window.location.href = "/mindfullness_activity/mnfn_puzzles.html";
-    });
-    });
-}
-processForm();
+        // Define handleSelection function
+        function handleSelection() {
+    const checkboxes = document.querySelectorAll('input[name="listGroupRadio"]');
+    const selectedActivities = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+
+    // Check if the user has already selected three activities
+    if (selectedActivities.length > 3) {
+        alert('You can only select up to 3 activities.');
+        return;
+    }
+
+    // Check if user is signed in
+    if (auth.currentUser) {
+        const userId = auth.currentUser.uid;
+        // Reference to the user's document
+        const userDocRef = db.collection('users').doc(userId);
+        // Reference to the activities subcollection under the user's document
+        const activitiesCollectionRef = userDocRef.collection('activities');
+
+        // If the user has selected exactly three activities
+        if (selectedActivities.length === 3) {
+            // Add fields to the subcollection document
+            const activitiesData = {};
+            selectedActivities.forEach((activity, index) => {
+                activitiesData[`activity${index + 1}`] = activity.value;
+            });
+
+            // Add the fields to the activities subcollection document
+            activitiesCollectionRef.add(activitiesData)
+                .then(docRef => {
+                    console.log('Fields added to activities document with ID: ', docRef.id);
+                    alert("Let's start it!")
+                    window.location.href = '/main.html';
+                })
+                .catch(error => {
+                    console.error('Error adding fields to activities document: ', error);
+                });
+        } else {
+            alert('Please select exactly three activities to proceed.');
+        }
+    } else {
+        // User is not signed in
+        alert('Please sign in to save your selections.');
+    }
+}   
+        // Add event listener to the button
+        document.getElementById('lezChallenge').addEventListener('click', handleSelection);
     </script>
 </body>
 

@@ -4,11 +4,24 @@ var ui = new firebaseui.auth.AuthUI(firebase.auth());
 var uiConfig = {
     callbacks: {
       signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-        // User successfully signed in.
-        // Return type determines whether we continue the redirect automatically
-        // or whether we leave that to developer to handle.
-        return true;
+        ///// 💀💀💀💀💀💀💀💀💀💀IF YOU WANT TO COPY THE CODE FROM THE LECTURE, AT LEAST DO IT PROPERLY 💀💀💀💀💀💀💀💀💀💀
+        var user = authResult.user;                           
+        if (authResult.additionalUserInfo.isNewUser) {    
+          db.collection("users").doc(user.uid).set({  
+            name: user.displayName,                
+            email: user.email,                   
+          }).then(function () {
+            console.log("New user into firestore");
+            window.location.assign("main.html");   
+          }).catch(function (error) {
+            console.log("Error no new user in firestore: " + error);
+          });
+        } else {
+          return true;
+        }
+        return false;
       },
+
       uiShown: function() {
         // The widget is rendered.
         // Hide the loader.
