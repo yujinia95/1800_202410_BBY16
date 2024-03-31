@@ -1,53 +1,4 @@
-
-// function addStoryToFirestore(userId, addTxt, stars) {
-//     // Reference to Firestore database
-//     var db = firebase.firestore();
-
-//     // Get the current date and time
-//     let currentDate = new Date();
-
-//     // Get the selected rating
-//     let rating = null;
-//     if (stars) {
-//         rating = stars.getAttribute("data-base");
-//     }
-
-//     // Path to user's diary sub-collection
-//     const userDiariesRef = db.collection("users").doc(userId).collection("diaries");
-
-//     // Add the story to the user's diaries sub-collection
-//     return userDiariesRef.add({
-//         content: addTxt.value,
-//         rating: rating,
-//         timestamp: firebase.firestore.Timestamp.fromDate(currentDate)
-//     });
-// }
-
-// function addStory(userId) {
-//     // Assuming you have a way to get the current user's ID
-//     // let userId = firebase.auth().currentUser.uid; 
-
-//     let addBtn = document.getElementById("addBtn");
-//     let addTxt = document.getElementById("addTxt");
-//     let stars = document.querySelector('input[name="star"]:checked');
-    
-//     // Check if both addTxt and stars are available
-//     if (addTxt && stars) {
-//         addStoryToFirestore(userId, addTxt, stars)
-//             .then(function (docRef) {
-//                 addTxt.value = ""; // Clear input field after adding
-//                 stars.checked = false; // Clear the selected star
-//                 window.location.href = "/diarythanks.html"; // Redirect to diarythanks.html
-//             })
-//             .catch(function (error) {
-//                 console.error("Error adding document: ", error);
-//             });
-//     } else {
-//         console.error("Text and/or stars not available.");
-//     }
-// }
-
-function addStoryToFirestore(addTxt, stars) {
+function addStoryToFirestore(addTitle, addTxt, stars) {
     // Reference to Firestore database
     var db = firebase.firestore();
 
@@ -69,6 +20,7 @@ function addStoryToFirestore(addTxt, stars) {
 
     /// Add the story to the user's 'diaries' subcollection
     return userDiaryRef.add({
+        title: addTitle.value,
         content: addTxt.value,
         rating: rating,
         timestamp: firebase.firestore.Timestamp.fromDate(currentDate)
@@ -77,14 +29,16 @@ function addStoryToFirestore(addTxt, stars) {
 
 function addStory() {
     // If user adds a story, add it to Firestore
-    let addBtn = document.getElementById("addBtn");
+    let addTitle = document.getElementById("addTitle");
     let addTxt = document.getElementById("addTxt");
     let stars = document.querySelector('input[name="star"]:checked');
-    
+    // let addBtn = document.getElementById("addBtn");
+
     // Check if both addTxt and stars are available
-    if (addTxt && stars) {
-        addStoryToFirestore(addTxt, stars)
+    if (addTitle && addTxt && stars) {
+        addStoryToFirestore(addTitle, addTxt, stars)
             .then(function (docRef) {
+                addTitle.value = ""; // Clear title field after adding
                 addTxt.value = ""; // Clear input field after adding
                 stars.checked = false; // Clear the selected star
                 window.location.href = "/diarylist.html"; // Redirect to diarythanks.html
@@ -93,8 +47,14 @@ function addStory() {
                 console.error("Error adding document: ", error);
             });
     } else {
-        console.error("Text and/or stars not available.");
+        console.error("Title, Text and/or stars not available.");
     }
 }
 
 document.getElementById("addBtn").addEventListener("click", addStory);
+
+
+function showStories() {
+    window.location.href = "/diarylist.html"; // Redirect to diarythanks.html
+}
+document.getElementById("checkStories").addEventListener("click", showStories);
