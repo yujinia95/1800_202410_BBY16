@@ -30,7 +30,7 @@
 
 <style>
     .textAlign1 {
-        margin-top: 10%;
+        margin-top: 3%;
         padding-bottom: 4%;
         font-size: 28px;
         display: flex;
@@ -162,6 +162,13 @@
                 Exhibition
             </label>
         </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                value="/mindfullness_activity/mnfn_cleaning.html" id="flexCheckChecked15" id="fifteenthRadio">
+            <label class="form-check-label" for="flexCheckChecked15">
+                Cleaning
+            </label>
+        </div>
     </form>
 
     <br>
@@ -177,56 +184,75 @@
 
     <!-- JS connects to skeleton-->
     <script src="/scripts/FirebaseAPI.js"></script>
-        <script src="/scripts/authentication.js"></script>
     <script src="/scripts/footer.js"></script>
     <script src="/scripts/skeleton.js"></script>
     <script>
-        // Define handleSelection function
+        const activitiesInfo = {
+            walking: { name: "Mindful Walking", url: "/mindfullness_activity/mnfn_walking.html" },
+            adventure: { name: "Adventure new cafe & restaurant", url: "/mindfullness_activity/mnfn_adventure.html" },
+            painting: { name: "Painting", url: "/mindfullness_activity/mnfn_painting.html" },
+            photography: { name: "Photography", url: "/mindfullness_activity/mnfn_photography.html" },
+            cooking: { name: "Cooking & Baking", url: "/mindfullness_activity/mnfn_cooking.html" },
+            reading: { name: "Reading", url: "/mindfullness_activity/mnfn_reading.html" },
+            exercise: { name: "Exercise", url: "/mindfullness_activity/mnfn_exercise.html" },
+            puzzles: { name: "Puzzles", url: "/mindfullness_activity/mnfn_puzzles.html" },
+            watching_movie: { name: "Watching Movie", url: "/mindfullness_activity/mnfn_watching_movie.html" },
+            volunteer: { name: "Volunteer", url: "/mindfullness_activity/mnfn_volunteer.html" },
+            visit_family: { name: "Visit a family", url: "/mindfullness_activity/mnfn_visit_family.html" },
+            meditation: { name: "Meditation", url: "/mindfullness_activity/mnfn_meditation.html" },
+            discover_music: { name: "Discover favourite music", url: "/mindfullness_activity/mnfn_discover_music.html" },
+            exhibition: { name: "Exhibition", url: "/mindfullness_activity/mnfn_exhibition.html" },
+            cleaning: { name: "Cleaning", url: "/mindfullness_activity/mnfn_cleaning.html" },
+        };
+
         function handleSelection() {
-    const checkboxes = document.querySelectorAll('input[name="listGroupRadio"]');
-    const selectedActivities = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+            const checkboxes = document.querySelectorAll('input[name="listGroupRadio"]');
+            const selectedActivities = Array.from(checkboxes).filter(checkbox => checkbox.checked);
 
-    // Check if the user has already selected three activities
-    if (selectedActivities.length > 3) {
-        alert('You can only select up to 3 activities.');
-        return;
-    }
+            if (selectedActivities.length > 3) {
+                alert('You can only select up to 3 activities.');
+                return;
+            }
 
-    // Check if user is signed in
-    if (auth.currentUser) {
-        const userId = auth.currentUser.uid;
-        // Reference to the user's document
-        const userDocRef = db.collection('users').doc(userId);
-        // Reference to the activities subcollection under the user's document
-        const activitiesCollectionRef = userDocRef.collection('activities');
+            if (firebase.auth().currentUser) {
+                const userId = firebase.auth().currentUser.uid;
+                const userDocRef = db.collection('users').doc(userId);
+                const activitiesCollectionRef = userDocRef.collection('activities');
 
-        // If the user has selected exactly three activities
-        if (selectedActivities.length === 3) {
-            // Add fields to the subcollection document
-            const activitiesData = {};
-            selectedActivities.forEach((activity, index) => {
-                activitiesData[`activity${index + 1}`] = activity.value;
-            });
+                if (selectedActivities.length === 3) {
+                    selectedActivities.forEach((activity, index) => {
+                        // Extract activity key from the value attribute
+                        const activityURL = new URL(activity.value, window.location.origin);
+                        const pathSegments = activityURL.pathname.split('/');
+                        const activityKey = pathSegments[pathSegments.length - 1].replace('.html', '').replace('mnfn_', '');
 
-            // Add the fields to the activities subcollection document
-            activitiesCollectionRef.add(activitiesData)
-                .then(docRef => {
-                    console.log('Fields added to activities document with ID: ', docRef.id);
-                    alert("Let's start it!")
-                    window.location.href = '/main.html';
-                })
-                .catch(error => {
-                    console.error('Error adding fields to activities document: ', error);
-                });
-        } else {
-            alert('Please select exactly three activities to proceed.');
+                        // Construct activity data object
+                        const activityData = {
+                            activityName: activitiesInfo[activityKey].name, // Get the name from activitiesInfo
+                            status: "in progress",
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                            url: activity.value // Store the URL for navigation
+                        };
+
+                        // Use the activity key as the document ID for direct mapping
+                        activitiesCollectionRef.doc(activityKey).set(activityData)
+                            .then(() => {
+                                console.log(`Activity ${activityData.activityName} added/updated successfully.`);
+                            })
+                            .catch(error => {
+                                console.error('Error adding/updating activity document:', error);
+                            });
+                    });
+                    alert("Let's start it!");
+                    //window.location.href = '/main.html';
+                } else {
+                    alert('Please select exactly three activities to proceed.');
+                }
+            } else {
+                alert('Please sign in to save your selections.');
+            }
         }
-    } else {
-        // User is not signed in
-        alert('Please sign in to save your selections.');
-    }
-}   
-        // Add event listener to the button
+
         document.getElementById('lezChallenge').addEventListener('click', handleSelection);
     </script>
 </body>

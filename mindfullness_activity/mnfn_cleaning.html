@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzles</title>
+    <title>Exercise</title>
     <meta name="comp1800 template" content="My 1800 App">
 
     <!-- Bootstrap Library CSS CDN go here -->
@@ -15,8 +15,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"/>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>   
     <!-- stylesheet from bootstrap-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <!-- stylesheet-->
@@ -28,26 +28,25 @@
 <body>
     <!-- nav bar-->
     <script src="/scripts/navbar.js"></script>
-    <div class="navbar-placeholder"></div>
+      <div class="navbar-placeholder"></div>
 
 
     <!-- Header for choosing activity-->
-    <h1 class="textAlign1">Let's try puzzles!</h1>
-    <h2 class="textAlign3">Did you know puzzles is a great therapy for mental health?</h2>
-    <h2 class="textAlign3">It's a great way to practice mindfulness.</h2>
-    <h2 class="textAlign3">It requires you to focus on the present moment and let go of distractions.</h2>
+    <h1 class="textAlign1">Do you exercise regularly?</h1>
+    <h2 class="textAlign3">Exercise can enhance physical and mental well-being</h2>
+    <h2 class="textAlign3">Get your motivation and confidence back</h2>
+    <h2 class="textAlign3">More passion! More energy! More footwork!</h2>
 
     <!-- File input-->
     <br>
     <br>
     <div class="mb-3">
-        <label for="formFileMultiple3" class="form-label" style="text-align: center;">Don't need to complete your puzzle.
-            Feel free to share your challenge with us</label>
-        <input class="form-control" type="file" id="formFileMultiple3" multiple accept="image/*">
+        <label for="formFileMultiple" class="form-label" style="text-align: center;">How was your exercise? Feel free to share your challenge experience with us</label>
+        <input class="form-control" type="file" id="formFileMultiple15" multiple accept="image/*">
     </div>
     <!-- button for entering next page-->
     <div class="d-flex justify-content-center">
-            <button type="button" class="btn btn-outline-secondary" id="submitBtn3">Submit</button>
+            <button type="button" class="btn btn-outline-secondary" id="submitBtn15">Submit</button>
     </div>
 
     <!-- footer -->
@@ -58,14 +57,14 @@
     <script src="/scripts/firebaseAPI.js"></script>
     <script src="/scripts/footer.js"></script>
     <script src="/scripts/skeleton.js"></script>
-
     <script>
+    //Uploading Image in Firestore for reading activity
         document.addEventListener('DOMContentLoaded', function () {
-            function uploadImageAndNavigateToNext3() {
+            function uploadImageAndNavigateToNext15() {
                 const userId = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
-                const fileInput = document.getElementById('formFileMultiple3');
+                const fileInput = document.getElementById('formFileMultiple15');
                 const file = fileInput.files[0];
-                const activityName = "Puzzles"; 
+                const activityName = "Cleaning";
         
                 if (file && userId) {
                     const storageRef = firebase.storage().ref();
@@ -108,7 +107,7 @@
                 }
             }
         
-            document.getElementById('submitBtn3').addEventListener('click', uploadImageAndNavigateToNext3);
+            document.getElementById('submitBtn15').addEventListener('click', uploadImageAndNavigateToNext15);
         });
     </script>
 </body>
