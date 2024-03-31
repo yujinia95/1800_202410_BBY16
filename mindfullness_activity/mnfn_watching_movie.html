@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adventure</title>
+    <title>Watching a movie</title>
     <meta name="comp1800 template" content="My 1800 App">
 
     <!-- Bootstrap Library CSS CDN go here -->
@@ -22,34 +22,33 @@
     <!-- stylesheet-->
     <link rel="stylesheet" href="/styles/styleForMindfullness.css">
     <link rel="stylesheet" href="/styles/style.css">
+
 </head>
 
 <body>
-     <!-- nav bar-->
-     <script src="/scripts/navbar.js"></script>
-     <div class="navbar-placeholder"></div>
-
+    <!-- nav bar-->
+    <script src="/scripts/navbar.js"></script>
+      <div class="navbar-placeholder"></div>
 
     <!-- Header for choosing activity-->
-    <h1 class="textAlign1">Try something new!</h1>
-    <h2 class="textAlign3">New experiences boost your brain power.</h2>
-    <h2 class="textAlign3">Find hidden gems in your area.</h2>
-    <h2 class="textAlign3">Try greeting cashier or barista or server with a big smile!</h2>
+    <h1 class="textAlign1">What is your favourite genre?</h1>
+    <h2 class="textAlign3">Movies offer a break from worries and stress from social media</h2>
+    <h2 class="textAlign3">Check out recently released movies</h2>
+    <h2 class="textAlign3">Is there any movie that captivates your interest?</h2>
 
     <!-- File input-->
     <br>
     <br>
     <div class="mb-3">
-        <label for="formFileMultiple" class="form-label" style="text-align: center;">What did you try? Feel free to share your challenge with us</label>
-        <input class="form-control" type="file" id="formFileMultiple8" multiple accept="image/*">
+        <label for="formFileMultiple" class="form-label" style="text-align: center;">Feel free to share your challenge experience with us</label>
+        <input class="form-control" type="file" id="formFileMultiple9" multiple accept="image/*">
     </div>
     <!-- button for entering next page-->
     <div class="d-flex justify-content-center">
-            <button type="button" class="btn btn-outline-secondary" id="submitBtn8">Submit</button>
+            <button type="button" class="btn btn-outline-secondary" id="submitBtn9">Submit</button>
     </div>
 
     <!-- footer -->
-   
     <div class="footer-class"></div>
 
 
@@ -59,11 +58,11 @@
     <script src="/scripts/skeleton.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            function uploadImageAndNavigateToNext8() {
+            function uploadImageAndNavigateToNext9() {
                 const userId = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
-                const fileInput = document.getElementById('formFileMultiple8');
+                const fileInput = document.getElementById('formFileMultiple9');
                 const file = fileInput.files[0];
-                const activityName = "Reading"; 
+                const activityName = "Watching Movie";
         
                 if (file && userId) {
                     const storageRef = firebase.storage().ref();
@@ -73,21 +72,25 @@
         
                     uploadTask.on('state_changed',
                         (snapshot) => {
+                            
                         },
                         (error) => {
                             console.error("Error during upload:", error);
                         },
                         () => {
                             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                             
                                 const activitiesRef = db.collection('users').doc(userId).collection('activities');
                                 activitiesRef.where("activityName", "==", activityName).get().then((querySnapshot) => {
                                     if (!querySnapshot.empty) {
+                                      
                                         const activityDocRef = activitiesRef.doc(querySnapshot.docs[0].id);
                                         activityDocRef.update({
                                             status: "completed",
                                             imageUrl: downloadURL 
                                         }).then(() => {
                                             console.log('Activity marked as completed with image URL:', downloadURL);
+                                            
                                             window.location.href = "/mindfullness_activity/mnfn_afterSubmit.html";
                                         }).catch((error) => {
                                             console.error('Error updating activity status:', error);
@@ -106,7 +109,7 @@
                 }
             }
         
-            document.getElementById('submitBtn8').addEventListener('click', uploadImageAndNavigateToNext8);
+            document.getElementById('submitBtn9').addEventListener('click', uploadImageAndNavigateToNext9);
         });
     </script>
 </body>

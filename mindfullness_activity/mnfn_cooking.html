@@ -58,44 +58,55 @@
     <script src="/scripts/firebaseAPI.js"></script>
     <script src="/scripts/footer.js"></script>
     <script src="/scripts/skeleton.js"></script>
-    <script>//Uploading Image in Firestore for reading activity
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Function to upload image and navigate to the next page
             function uploadImageAndNavigateToNext7() {
+                const userId = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
                 const fileInput = document.getElementById('formFileMultiple7');
                 const file = fileInput.files[0];
-
-                if (file) {
+                const activityName = "Cooking & Baking";
+        
+                if (file && userId) {
                     const storageRef = firebase.storage().ref();
-                    const imageRef = storageRef.child('cooking/' + file.name);
+                    const filePath = `activities/${userId}/${activityName}_${Date.now()}`;
+                    const imageRef = storageRef.child(filePath);
                     const uploadTask = imageRef.put(file);
-
+        
                     uploadTask.on('state_changed',
                         (snapshot) => {
-                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                            console.log("Upload is " + progress + "% done");
                         },
                         (error) => {
                             console.error("Error during upload:", error);
                         },
                         () => {
                             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                                db.collection('userExperience').doc('cooking').set({
-                                    imageUrl: downloadURL
-                                }).then(() => {
-                                    console.log('Image saved to Firestore: ', downloadURL);
-                                    window.location.href = "/mindfullness_activity/mnfn_afterSubmit.html";
+                                const activitiesRef = db.collection('users').doc(userId).collection('activities');
+                                activitiesRef.where("activityName", "==", activityName).get().then((querySnapshot) => {
+                                    if (!querySnapshot.empty) {
+                                        const activityDocRef = activitiesRef.doc(querySnapshot.docs[0].id);
+                                        activityDocRef.update({
+                                            status: "completed",
+                                            imageUrl: downloadURL
+                                        }).then(() => {
+                                            console.log('Activity marked as completed with image URL:', downloadURL);
+                                            window.location.href = "/mindfullness_activity/mnfn_afterSubmit.html";
+                                        }).catch((error) => {
+                                            console.error('Error updating activity status:', error);
+                                        });
+                                    } else {
+                                        console.log("No matching activity found");
+                                    }
                                 }).catch((error) => {
-                                    console.error('Error saving image URL to Firestore:', error);
+                                    console.error("Error finding activity document:", error);
                                 });
                             });
                         }
                     );
                 } else {
-                    console.error("No file selected");
+                    console.error("No file selected or user not logged in");
                 }
             }
-
+        
             document.getElementById('submitBtn7').addEventListener('click', uploadImageAndNavigateToNext7);
         });
     </script>

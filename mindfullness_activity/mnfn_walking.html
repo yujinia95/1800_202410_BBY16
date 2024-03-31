@@ -47,7 +47,7 @@
     </div>
     <!-- button for entering next page-->
     <div class="d-flex justify-content-center">
-        <button type="button" class="btn btn-outline-secondary" id="submitBtn">Submit</button>
+        <button type="button" class="btn btn-outline-secondary" id="submitBtn1">Submit</button>
     </div>
 
     <!-- footer -->
@@ -58,42 +58,59 @@
     <script src="/scripts/firebaseAPI.js"></script>
     <script src="/scripts/footer.js"></script>
     <script src="/scripts/skeleton.js"></script>
-    <script>//Uploading Image in Firestore for walking activity
-        function uploadImageAndNavigateToNext1() {
-            const fileInput = document.getElementById('formFileMultiple1');
-            const file = fileInput.files[0];
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function uploadImageAndNavigateToNext1() {
+                const userId = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
+                const fileInput = document.getElementById('formFileMultiple1');
+                const file = fileInput.files[0];
+                const activityName = "Mindful Walking"; 
+        
+                if (file && userId) {
+                    const storageRef = firebase.storage().ref();
+                    const filePath = `activities/${userId}/${activityName}_${Date.now()}`;
+                    const imageRef = storageRef.child(filePath);
+                    const uploadTask = imageRef.put(file);
+        
+                    uploadTask.on('state_changed',
+                        (snapshot) => {
+                        },
+                        (error) => {
+                            console.error("Error during upload:", error);
+                        },
+                        () => {
+                            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                                const activitiesRef = db.collection('users').doc(userId).collection('activities');
+                                activitiesRef.where("activityName", "==", activityName).get().then((querySnapshot) => {
+                                    if (!querySnapshot.empty) {
+                                        const activityDocRef = activitiesRef.doc(querySnapshot.docs[0].id);
+                                        activityDocRef.update({
+                                            status: "completed",
+                                            imageUrl: downloadURL
+                                        }).then(() => {
+                                            console.log('Activity marked as completed with image URL:', downloadURL);
 
-            if (file) {
-                const storageRef = firebase.storage().ref();
-                const imageRef = storageRef.child('walking/' + file.name);
-                const uploadTask = imageRef.put(file);
-
-                uploadTask.on('state_changed',
-                    (snapshot) => {
-                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                        console.log("Upload is " + progress + "% done");
-                    },
-                    (error) => {
-                        console.error("Error during upload:", error);
-                    },
-                    () => {
-                        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                            db.collection('userExperience').doc('walking').set({
-                                imageUrl: downloadURL
-                            }).then(() => {
-                                console.log('Image saved to Firestore: ', downloadURL);
-                                window.location.href = "/mindfullness_activity/mnfn_afterSubmit.html";
-                            }).catch((error) => {
-                                console.error('Error saving image URL to Firestore:', error);
+                                            window.location.href = "/mindfullness_activity/mnfn_afterSubmit.html";
+                                        }).catch((error) => {
+                                            console.error('Error updating activity status:', error);
+                                        });
+                                    } else {
+                                        console.log("No matching activity found");
+                                    }
+                                }).catch((error) => {
+                                    console.error("Error finding activity document:", error);
+                                });
                             });
-                        });
-                    }
-                );
-            } else {
-                console.error("No fiel selected");
+                        }
+                    );
+                } else {
+                    console.error("No file selected or user not logged in");
+                }
             }
-        }
-        document.getElementById('submitBtn').addEventListener('click', uploadImageAndNavigateToNext1);</script>
+        
+            document.getElementById('submitBtn1').addEventListener('click', uploadImageAndNavigateToNext1);
+        });
+    </script>
 </body>
 
 </html>
