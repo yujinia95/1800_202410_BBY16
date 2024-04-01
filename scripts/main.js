@@ -47,10 +47,6 @@ function readRandomQuote(day) {
 readRandomQuote("evening");
 
 
-
-readRandomQuote("evening");
-// readRandomQuote("morning");
-
 function readQuote(day) {
     db.collection("quotes").doc(day) // Constructing the document ID based on the daytime parameter
       .get() // Fetching the document data
@@ -68,6 +64,6 @@ function readQuote(day) {
           console.log("Error getting quote:", error);
       });
 }
-// readQuote("evening");
-// readQuote("morning");
+
+
 
