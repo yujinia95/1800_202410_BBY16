@@ -18,8 +18,11 @@ var uiConfig = {
                     db.collection("users").doc(user.uid).collection("diaries").doc().set({
                         placeholderField: true
                     });
+                    
                     console.log("Activities sub-collection added for the user");
                     window.location.assign("main.html");
+                    
+                    
 
 
                 }).catch(function (error) {
