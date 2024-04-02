@@ -12,10 +12,19 @@ var uiConfig = {
                     console.log("New user added to firestore");
 
                     // Add empty "activities" sub-collection for the new user
-                    db.collection("users").doc(user.uid).collection("activities").doc().set({});
-                    db.collection("users").doc(user.uid).collection("diaries").doc().set({});
+                    db.collection("users").doc(user.uid).collection("activities").doc().set({
+                        placeholderField: true
+                    });
+                    db.collection("users").doc(user.uid).collection("diaries").doc().set({
+                        placeholderField: true
+                    });
+                    
                     console.log("Activities sub-collection added for the user");
                     window.location.assign("main.html");
+                    
+                    
+
+
                 }).catch(function (error) {
                     console.log("Error adding new user: " + error);
                 });
