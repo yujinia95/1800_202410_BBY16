@@ -243,14 +243,15 @@
                                 console.error('Error adding/updating activity document:', error);
                             });
                     });
-                    alert("Let's start it!");
-                    //window.location.href = '/main.html';
+
                 } else {
                     alert('Please select exactly three activities to proceed.');
                 }
             } else {
                 alert('Please sign in to save your selections.');
             }
+            alert("Let's start it!");
+                    window.location.href = '/main.html';
         }
 
         document.getElementById('lezChallenge').addEventListener('click', handleSelection);

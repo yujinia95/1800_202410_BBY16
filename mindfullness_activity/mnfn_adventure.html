@@ -57,13 +57,13 @@
     <script src="/scripts/firebaseAPI.js"></script>
     <script src="/scripts/footer.js"></script>
     <script src="/scripts/skeleton.js"></script>
-    <script>//Uploading Image in Firestore for reading activity
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
             function uploadImageAndNavigateToNext8() {
                 const userId = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
                 const fileInput = document.getElementById('formFileMultiple8');
                 const file = fileInput.files[0];
-                const activityName = "Reading"; // The name of the activity in Firestore
+                const activityName = "Adventure new cafe & restaurant"; 
         
                 if (file && userId) {
                     const storageRef = firebase.storage().ref();
@@ -73,25 +73,21 @@
         
                     uploadTask.on('state_changed',
                         (snapshot) => {
-                            // Optional: handle upload progress
                         },
                         (error) => {
                             console.error("Error during upload:", error);
                         },
                         () => {
                             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                                // Find the document for the "Reading" activity
                                 const activitiesRef = db.collection('users').doc(userId).collection('activities');
                                 activitiesRef.where("activityName", "==", activityName).get().then((querySnapshot) => {
                                     if (!querySnapshot.empty) {
-                                        // Assuming the activity name is unique, there should be only one document
                                         const activityDocRef = activitiesRef.doc(querySnapshot.docs[0].id);
                                         activityDocRef.update({
                                             status: "completed",
-                                            imageUrl: downloadURL // Ensure this matches the field name in Firestore
+                                            imageUrl: downloadURL 
                                         }).then(() => {
                                             console.log('Activity marked as completed with image URL:', downloadURL);
-                                            // Navigate to the next page after successfully marking the activity as completed
                                             window.location.href = "/mindfullness_activity/mnfn_afterSubmit.html";
                                         }).catch((error) => {
                                             console.error('Error updating activity status:', error);

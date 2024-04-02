@@ -10,12 +10,6 @@ function getNameFromAuth() {
             // method #1:  insert with JS
             document.getElementById("name-goes-here").innerText = userName;    
 
-            //method #2:  insert using jquery
-            //$("#name-goes-here").text(userName); //using jquery
-
-            //method #3:  insert using querySelector
-            //document.querySelector("#name-goes-here").innerText = userName
-
         } else {
             // No user is signed in.
             console.log ("No user is logged in");
@@ -23,24 +17,6 @@ function getNameFromAuth() {
     });
 }
 getNameFromAuth(); //run the function
-
-// // // Function to read the quote of the day from the Firestore "quotes" collection
-// // // Input param is the String representing the time of day aka, the document name
-// function readQuote(daytime) {
-//     db.collection("quotes").doc(daytime)                                                      //name of the collection and documents should matach excatly with what you have in Firestore
-//       .onSnapshot(dayDoc => {                                                               //arrow notation
-//            console.log("current document data: " + dayDoc.data());                          //.data() returns data object
-//            document.getElementById("quote-goes-here").innerHTML = dayDoc.data().quote4;      //using javascript to display the data on the right place
-           
-//            //Here are other ways to access key-value data fields
-//            //$('#quote-goes-here').text(dayDoc.data().quote);         //using jquery object dot notation
-//            //$("#quote-goes-here").text(dayDoc.data()["quote"]);      //using json object indexing
-// 		       //document.querySelector("#quote-goes-here").innerHTML = dayDoc.data().quote;
-//       })
-// }
-
-// readQuote("evening");
-
 
 //goes into database and grabs a random quote from the database
 function readRandomQuote(day) {
@@ -69,11 +45,7 @@ function readRandomQuote(day) {
 }
 
 readRandomQuote("evening");
-readRandomQuote("morning");
 
-
-readRandomQuote("evening");
-// readRandomQuote("morning");
 
 function readQuote(day) {
     db.collection("quotes").doc(day) // Constructing the document ID based on the daytime parameter
@@ -92,6 +64,6 @@ function readQuote(day) {
           console.log("Error getting quote:", error);
       });
 }
-// readQuote("evening");
-// readQuote("morning");
+
+
 
