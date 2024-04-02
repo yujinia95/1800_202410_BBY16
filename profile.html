@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <title>My BCIT Project</title>
-        <meta name="comp1800 template" content="My 1800 App">
-    
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-        <!-- Other libraries go here -->
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-        <link rel="stylesheet" href="styles/profile.css">
-    </head>
+<head>
+    <title>My BCIT Project</title>
+    <meta name="comp1800 template" content="My 1800 App">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Other libraries go here -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <link rel="stylesheet" href="styles/profile.css">
+</head>
 
 <body>
     <div class="nav">
@@ -28,7 +28,26 @@
             <img src="/images/profile-picutr.jpg" alt="profile">
             <span id="name-goes-here"></span>
         </div>
-        <button onclick="logOut()" id="logout">logout</button>
+        <div id="calendar">
+            <div class="calendar-header">
+                <span class="month-year"></span>
+            </div>
+            <div class="calendar-body">
+                <div class="day-names">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+                <div class="dates" id="dates"></div>
+            </div>
+        </div>
+    </div>
+
+    <button onclick="logOut()" id="logout">logout</button>
     </div>
 
 
