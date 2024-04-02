@@ -23,19 +23,17 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"/>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>   
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <!-- MDB Rating JavaScript-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <link rel="stylesheet" href="./styles/style.css">
     <!--rating local-->
     <link rel="stylesheet" href="./styles/rating.css">
-    
-    <!--diary local-->
-    <link rel="stylesheet" href="./styles/diary.css">
 </head>
 
 <body>
@@ -47,44 +45,45 @@
     <!-- diary -->
     <div class="container my-4">
         <h1 class="text-center">Reflection</h1>
+        <h3 class="text-center">Embrace your journey</h3>
+    </div>
+    <div class="container my-4">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Embrace your journey</h5>
-                <p class="card-text">Notable moments or challenges?</p>
-                <div class="mb-1">
-                    <textarea class="form-control" id="addTitle" rows="2" cols="30"
-                        placeholder="Title"></textarea>
-                </div>
-                <div class="mb-3">
-                    <textarea class="form-control" id="addTxt" rows="6" cols="50"
-                        placeholder="Write your diary here"></textarea>
-                </div>
-                <p class="card-text mt-2">How well did you think you did?</p>
-                <div class="d-flex">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="stars" id="stars">
-                                <form action="">
-                                    <input class="star star-5" id="star-5" type="radio" name="star" data-base="5"/>
-                                    <label class="star star-5" for="star-5"></label>
-                                    <input class="star star-4" id="star-4" type="radio" name="star" data-base="4"/>
-                                    <label class="star star-4" for="star-4"></label>
-                                    <input class="star star-3" id="star-3" type="radio" name="star" data-base="3"/>
-                                    <label class="star star-3" for="star-3"></label>
-                                    <input class="star star-2" id="star-2" type="radio" name="star" data-base="2"/>
-                                    <label class="star star-2" for="star-2"></label>
-                                    <input class="star star-1" id="star-1" type="radio" name="star" data-base="1"/>
-                                    <label class="star star-1" for="star-1"></label>
-                                </form>
+                <h5 class="card-text">Notable moments or challenges?</h5>
+                    <div class="mb-1">
+                        <textarea class="form-control" id="addTitle" rows="2" cols="30" placeholder="Title"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="addTxt" rows="6" cols="50"
+                            placeholder="Write your diary here"></textarea>
+                    </div>
+                    <p class="card-text mt-2">How well did you think you did?</p>
+                    <div class="d-flex">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="stars" id="stars">
+                                    <form action="">
+                                        <input class="star star-5" id="star-5" type="radio" name="star" data-base="5" />
+                                        <label class="star star-5" for="star-5"></label>
+                                        <input class="star star-4" id="star-4" type="radio" name="star" data-base="4" />
+                                        <label class="star star-4" for="star-4"></label>
+                                        <input class="star star-3" id="star-3" type="radio" name="star" data-base="3" />
+                                        <label class="star star-3" for="star-3"></label>
+                                        <input class="star star-2" id="star-2" type="radio" name="star" data-base="2" />
+                                        <label class="star star-2" for="star-2"></label>
+                                        <input class="star star-1" id="star-1" type="radio" name="star" data-base="1" />
+                                        <label class="star star-1" for="star-1"></label>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <a class="btn btn-primary" id="addBtn">Add Story</a>
-                <a class="btn btn-primary" id="checkStories">Show Stories</a>
-                <div id="showStories"></div>
-                <!--rating system-->
-                
+                    <a class="btn btn-primary" id="addBtn">Add Story</a>
+                    <a class="btn btn-primary" id="checkStories">Show Stories</a>
+                    <div id="showStories"></div>
+                    <!--rating system-->
+
             </div>
         </div>
 
