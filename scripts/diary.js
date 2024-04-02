@@ -40,8 +40,9 @@ function addStory() {
             .then(function (docRef) {
                 addTitle.value = ""; // Clear title field after adding
                 addTxt.value = ""; // Clear input field after adding
-                stars.checked = false; // Clear the selected star
+                if (stars) stars.checked = false; // Clear the selected star
                 window.location.href = "/diarylist.html"; // Redirect to diarythanks.html
+                alert("Diary saved successfully! Great Job!")
             })
             .catch(function (error) {
                 console.error("Error adding document: ", error);
@@ -50,11 +51,10 @@ function addStory() {
         console.error("Title, Text and/or stars not available.");
     }
 }
-
 document.getElementById("addBtn").addEventListener("click", addStory);
 
 
 function showStories() {
-    window.location.href = "/diarylist.html"; // Redirect to diarythanks.html
+    window.location.href = "/diarylist.html"; // Redirect to diarylist.html
 }
 document.getElementById("checkStories").addEventListener("click", showStories);

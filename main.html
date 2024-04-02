@@ -80,8 +80,9 @@
     <!-- JS Functions-->
     <script src="./scripts/firebaseAPI.js"></script>
     <script src="./scripts/skeleton.js"></script>
-    <script src="./scripts/main.js"></script>
     <script src="./scripts/footer.js"></script>
+    <script src="./scripts/main.js"></script>
+
     <script>
         const activitiesInfo = {
             walking: { name: "Mindful Walking", url: "/mindfullness_activity/mnfn_walking.html" },
@@ -109,11 +110,16 @@
             activitiesRef.get().then(snapshot => {
                 if (snapshot.empty) {
                     console.log('No activities found.');
+                    document.getElementById('submitBtn').style.display = 'none';
+                    document.getElementById('challengesButton').style.display = 'block'; // Show if no activities
                     return;
                 }
+
                 let allActivitiesCompleted = true;
+                let activitiesCount = 0; // Track the number of activities
 
                 snapshot.docs.forEach((doc, index) => {
+                    activitiesCount++; // Increment for each activity found
                     const data = doc.data();
                     const activityElement = document.getElementById(`challenge${index + 1}`);
 
@@ -139,24 +145,41 @@
                         }
                     }
                 });
+
                 const journalButton = document.getElementById('submitBtn');
-                    if (allActivitiesCompleted) {
-                        journalButton.style.display = 'block'; 
-                        journalButton.addEventListener('click', function() {
-                            window.location.href = './diary.html';
-                        });
-                    } else {
-                        journalButton.style.display = 'none'; 
-                    }
-                document.getElementById('challengesButton').style.display = 'none';
+                const challengesButton = document.getElementById('challengesButton');
+
+                if (activitiesCount === 3) {
+                    challengesButton.style.display = 'none'; // Hide challenges button if 3 activities are displayed
+                } else {
+                    challengesButton.style.display = 'block'; // Otherwise, show it
+                }
+
+                if (allActivitiesCompleted && activitiesCount === 3) {
+                    journalButton.style.display = 'block'; // Show only if all activities are completed and 3 activities are displayed
+                } else {
+                    journalButton.style.display = 'none';
+                }
             });
         } else {
             console.log("No user is signed in.");
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('challengesButton').style.display = 'block'; // Default to showing if no user
         }
     });
 }
 
-window.onload = fetchAndDisplayActivities;
+function setupJournalButtonEventListener() {
+    const journalButton = document.getElementById('submitBtn');
+    journalButton.addEventListener('click', function() {
+        window.location.href = './diary.html';
+    });
+}
+
+window.onload = function() {
+    fetchAndDisplayActivities();
+    setupJournalButtonEventListener();
+};
 </script>
 </body>
 
