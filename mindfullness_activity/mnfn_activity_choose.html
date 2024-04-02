@@ -206,55 +206,53 @@
         };
 
         function handleSelection() {
-            const checkboxes = document.querySelectorAll('input[name="listGroupRadio"]');
-            const selectedActivities = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+    const checkboxes = document.querySelectorAll('input[name="listGroupRadio"]');
+    const selectedActivities = Array.from(checkboxes).filter(checkbox => checkbox.checked);
 
-            if (selectedActivities.length > 3) {
-                alert('You can only select up to 3 activities.');
-                return;
-            }
+    if (selectedActivities.length > 3) {
+        alert('You can only select up to 3 activities.');
+        return;
+    }
 
-            if (firebase.auth().currentUser) {
-                const userId = firebase.auth().currentUser.uid;
-                const userDocRef = db.collection('users').doc(userId);
-                const activitiesCollectionRef = userDocRef.collection('activities');
+    if (firebase.auth().currentUser) {
+        const userId = firebase.auth().currentUser.uid;
+        const userDocRef = db.collection('users').doc(userId);
+        const activitiesCollectionRef = userDocRef.collection('activities');
 
-                if (selectedActivities.length === 3) {
-                    selectedActivities.forEach((activity, index) => {
-                        // Extract activity key from the value attribute
-                        const activityURL = new URL(activity.value, window.location.origin);
-                        const pathSegments = activityURL.pathname.split('/');
-                        const activityKey = pathSegments[pathSegments.length - 1].replace('.html', '').replace('mnfn_', '');
+        if (selectedActivities.length === 3) {
+            const promises = selectedActivities.map((activity) => {
+                // Logic to construct activity key and activity data object remains the same
+                const activityURL = new URL(activity.value, window.location.origin);
+                const pathSegments = activityURL.pathname.split('/');
+                const activityKey = pathSegments[pathSegments.length - 1].replace('.html', '').replace('mnfn_', '');
+                const activityData = {
+                    activityName: activitiesInfo[activityKey].name,
+                    status: "in progress",
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    url: activity.value
+                };
 
-                        // Construct activity data object
-                        const activityData = {
-                            activityName: activitiesInfo[activityKey].name, // Get the name from activitiesInfo
-                            status: "in progress",
-                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                            url: activity.value // Store the URL for navigation
-                        };
+                // Return the promise from set operation
+                return activitiesCollectionRef.doc(activityKey).set(activityData);
+            });
 
-                        // Use the activity key as the document ID for direct mapping
-                        activitiesCollectionRef.doc(activityKey).set(activityData)
-                            .then(() => {
-                                console.log(`Activity ${activityData.activityName} added/updated successfully.`);
-                            })
-                            .catch(error => {
-                                console.error('Error adding/updating activity document:', error);
-                            });
-                    });
-
-                } else {
-                    alert('Please select exactly three activities to proceed.');
-                }
-            } else {
-                alert('Please sign in to save your selections.');
-            }
-            alert("Let's start it!");
-                    window.location.href = '/main.html';
+            Promise.all(promises).then(() => {
+                console.log("All activities added/updated successfully.");
+                alert("Let's start it!");
+                window.location.href = '/main.html'; // Navigate after all operations complete
+            }).catch(error => {
+                console.error('Error adding/updating activities:', error);
+            });
+        } else {
+            alert('Please select exactly three activities to proceed.');
         }
+    } else {
+        alert('Please sign in to save your selections.');
+    }
+}
 
-        document.getElementById('lezChallenge').addEventListener('click', handleSelection);
+document.getElementById('lezChallenge').addEventListener('click', handleSelection);
+
     </script>
 </body>
 
