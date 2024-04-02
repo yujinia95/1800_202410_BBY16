@@ -221,7 +221,6 @@
 
         if (selectedActivities.length === 3) {
             const promises = selectedActivities.map((activity) => {
-                // Logic to construct activity key and activity data object remains the same
                 const activityURL = new URL(activity.value, window.location.origin);
                 const pathSegments = activityURL.pathname.split('/');
                 const activityKey = pathSegments[pathSegments.length - 1].replace('.html', '').replace('mnfn_', '');
@@ -232,14 +231,13 @@
                     url: activity.value
                 };
 
-                // Return the promise from set operation
                 return activitiesCollectionRef.doc(activityKey).set(activityData);
             });
 
             Promise.all(promises).then(() => {
                 console.log("All activities added/updated successfully.");
                 alert("Let's start it!");
-                window.location.href = '/main.html'; // Navigate after all operations complete
+                window.location.href = '/main.html'; 
             }).catch(error => {
                 console.error('Error adding/updating activities:', error);
             });
