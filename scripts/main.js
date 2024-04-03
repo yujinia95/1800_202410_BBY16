@@ -64,60 +64,57 @@ function readQuote(day) {
             console.log("Error getting quote:", error);
         });
 }
-function clearActivitiesCollectionForCurrentUser(currentDate = new Date()) {
+function clearActivitiesCollection() {
     const user = firebase.auth().currentUser; // Get the currently authenticated user
 
     if (user) {
         const userRef = db.collection('users').doc(user.uid); // Reference to the user's document
-        userRef.get().then(doc => {
-            if (!doc.exists) {
-                console.log('No such user!');
-                return;
-            }
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const month = yesterday.getMonth() + 1; // Adding 1 to adjust the month index
+        const day = yesterday.getDate();
+        const year = yesterday.getFullYear();
+        const yesterdayString = `${month}-${day}-${year}`;
+        console.log("yesterday: " + yesterdayString);
 
-            const userData = doc.data();
-            const lastResetDate = userData.lastResetDate;
-            const today = new Date().toLocaleDateString();
+        // Path to the user's activities needs to be specific to the user
+        const activitiesRef = userRef.collection('activities');
 
-            // Check if the last reset date is today; if not, clear activities and update the lastResetDate
-            if (lastResetDate !== today) {
-                // Path to the user's activities needs to be specific to the user
-                const activitiesRef = userRef.collection('activities');
+        // Fetch and clear activities
+        activitiesRef.get()
+            .then(snapshot => {
+                const deletePromises = []; // Array to store delete promises
+                snapshot.forEach(doc => {
+                    // Assuming there's a timestamp field you're comparing against
+                    const docDate = doc.data().timestamp?.toDate()?.toLocaleDateString();
+                    console.log("doc date" + docDate);
+                    if (docDate > yesterdayString) {
+                        // Add the delete promise to the array
+                        deletePromises.push(doc.ref.delete().then(() => {
+                            console.log(`Deleted activity ${doc.id} for user ${user.uid}`);
+                        }));
+                    }
+                });
 
-                // Fetch and clear activities
-                activitiesRef.get()
-                    .then(snapshot => {
-                        snapshot.forEach(doc => {
-                            // Assuming there's a timestamp field you're comparing against
-                            const docDate = doc.data().timestamp?.toDate()?.toLocaleDateString();
-                            if (docDate < today) {
-                                doc.ref.delete().then(() => {
-                                    console.log(`Deleted activity ${doc.id} for user ${user.uid}`);
-                                }).catch(error => {
-                                    console.error('Error deleting activity:', error);
-                                });
-                            }
-                        });
-
-                        // Update the user's lastResetDate to today after clearing activities
-                        userRef.update({ lastResetDate: today }).then(() => {
-                            console.log('User lastResetDate updated and activities cleared.');
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error clearing activities collection:', error);
-                    });
-            } else {
-                console.log('Activities already cleared for today.');
-            }
-        }).catch(error => {
-            console.error('Error fetching user document:', error);
-        });
+                // Wait for all delete promises to resolve
+                return Promise.all(deletePromises);
+            })
+            .then(() => {
+                // Reload the page once all activities are cleared
+                reloadPage();
+            })
+            .catch(error => {
+                console.error('Error clearing activities collection:', error);
+            });
     } else {
         console.log('No authenticated user found.');
     }
 }
 
+// Reload the page
+function reloadPage() {
+    location.reload();
+}
 
 
 
