@@ -83,21 +83,25 @@ function clearActivitiesCollection() {
         // Fetch and clear activities
         activitiesRef.get()
             .then(snapshot => {
+                const deletePromises = []; // Array to store delete promises
                 snapshot.forEach(doc => {
                     // Assuming there's a timestamp field you're comparing against
                     const docDate = doc.data().timestamp?.toDate()?.toLocaleDateString();
                     console.log("doc date" + docDate);
                     if (docDate > yesterdayString) {
-                        doc.ref.delete().then(() => {
+                        // Add the delete promise to the array
+                        deletePromises.push(doc.ref.delete().then(() => {
                             console.log(`Deleted activity ${doc.id} for user ${user.uid}`);
-                        }).catch(error => {
-                            console.error('Error deleting activity:', error);
-                        });
+                        }));
                     }
                 });
 
-                // There's no field to update with yesterday's date in this version
-                console.log('Activities cleared for', yesterdayString);
+                // Wait for all delete promises to resolve
+                return Promise.all(deletePromises);
+            })
+            .then(() => {
+                // Reload the page once all activities are cleared
+                reloadPage();
             })
             .catch(error => {
                 console.error('Error clearing activities collection:', error);
@@ -107,17 +111,11 @@ function clearActivitiesCollection() {
     }
 }
 
-// Check if a user is logged in before attempting to clear their activities collection
-firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-        // User is logged in, call clearActivitiesCollection
-        clearActivitiesCollection();
-    } else {
-        // No authenticated user found
-        console.log('No authenticated user found.');
-    }
-});
 
+// Reload the page
+function reloadPage() {
+    location.reload();
+}
 
 
 

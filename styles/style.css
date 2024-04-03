@@ -1,3 +1,4 @@
+
 nav, footer {
     background-color: #004d61;
 }
@@ -29,4 +30,24 @@ body {
   font-variation-settings:
     "SOFT" 0,
     "WONK" 0;
+}
+
+#challenge1,
+#challenge2,
+#challenge3{
+  font-size: x-large;
+}
+
+.btn btn-primary{
+  align-items: center;
+  justify-items: center;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+body {
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
 }
