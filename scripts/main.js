@@ -118,48 +118,7 @@ function clearActivitiesCollectionForCurrentUser(currentDate = new Date()) {
     }
 }
 
-// Check if a user is logged in before attempting to clear their activities collection
-firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-        // User is logged in, call clearActivitiesCollectionForCurrentUser
-        const customDate = new Date('2024-04-01'); // Replace '2024-04-02' with the desired date
-        clearActivitiesCollectionForCurrentUser(customDate);
-        //clearActivitiesCollectionForCurrentUser(customDate);
-    } else {
-        // No authenticated user found
-        console.log('No authenticated user found.');
-    }
-});
 
 
-function generateCalendar() {
-    const now = new Date();
-    const month = now.getMonth();
-    const year = now.getFullYear();
-
-    const firstDayOfMonth = new Date(year, month, 1);
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-    const dateString = firstDayOfMonth.toLocaleDateString('default', { month: 'long' }) + ' ' + year;
-    document.querySelector('.month-year').textContent = dateString;
-
-    const datesElement = document.getElementById('dates');
-    datesElement.innerHTML = ''; // Clear previous dates
-
-    // Add empty divs for the blank days at the start of the month
-    for (let i = 0; i < firstDayOfMonth.getDay(); i++) {
-        datesElement.innerHTML += '<div></div>';
-    }
-
-    // Add day numbers for the current month
-    for (let i = 1; i <= daysInMonth; i++) {
-        datesElement.innerHTML += `<div>${i}</div>`;
-    }
-}
-
-// Generate the calendar when the page loads
-window.onload = function() {
-    generateCalendar();
-};
 
 
