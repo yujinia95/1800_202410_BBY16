@@ -1,15 +1,18 @@
 function addStoryToFirestore(addTitle, addTxt, stars) {
-    // Reference to Firestore database
+    // initializes a reference to my Firestore database
     var db = firebase.firestore();
 
-    // Get the current user's UID
+    // Get the current user's UID(Unique Identifier) 
+    // of the curretly signed-in user through Firebase Authentication
     var userId = firebase.auth().currentUser.uid;
 
+    // Creates a new 'Date'object
     // Get the current date and time
     let currentDate = new Date();
 
     // Get the selected rating
     let rating = null;
+    // document.querySelector searches the document for an element that matches the specified CSS selector:
     const checkedStar = document.querySelector('input[name="star"]:checked');
     if (checkedStar) {
         rating = checkedStar.getAttribute("data-base");
