@@ -26,6 +26,8 @@ if (user) {
             console.log('No activities found.');
             document.getElementById('submitBtn').style.display = 'none';
             document.getElementById('challengesButton').style.display = 'block'; // Show if no activities
+            document.getElementById('clear-button').style.display = 'none'; // Show if no activities
+
             return;
         }
 
