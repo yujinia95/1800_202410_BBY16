@@ -57,7 +57,7 @@
     <div class="navbar-placeholder"></div>
 
     <!-- Header for choosing activity-->
-    <h1 class="textAlign1"> Daily challenge</h1>
+    <h1 class="textAlign1"> 3 Daily challenges </h1>
 
     <!-- Activity List-->
 
@@ -173,7 +173,7 @@
     <br>
     <!-- Initiate activity button-->
     <div class="d-flex justify-content-center">
-        <button type="button" class="btn btn-outline-secondary" id="lezChallenge">Let's challenge</button>
+        <button type="button" class="btn btn-outline-secondary" id="lezChallenge">Let's begin!</button>
     </div>
     </form>
 
@@ -236,8 +236,7 @@
 
                     Promise.all(promises).then(() => {
                         console.log("All activities added/updated successfully.");
-                        alert("Let's start it!");
-                        window.location.href = '/main.html';
+                                window.location.href = '/main.html';
                     }).catch(error => {
                         console.error('Error adding/updating activities:', error);
                     });

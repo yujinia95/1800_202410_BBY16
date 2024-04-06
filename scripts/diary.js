@@ -1,15 +1,18 @@
 function addStoryToFirestore(addTitle, addTxt, stars) {
-    // Reference to Firestore database
+    // initializes a reference to my Firestore database
     var db = firebase.firestore();
 
-    // Get the current user's UID
+    // Get the current user's UID(Unique Identifier) 
+    // of the curretly signed-in user through Firebase Authentication
     var userId = firebase.auth().currentUser.uid;
 
+    // Creates a new 'Date'object
     // Get the current date and time
     let currentDate = new Date();
 
     // Get the selected rating
     let rating = null;
+    // document.querySelector searches the document for an element that matches the specified CSS selector:
     const checkedStar = document.querySelector('input[name="star"]:checked');
     if (checkedStar) {
         rating = checkedStar.getAttribute("data-base");
@@ -32,7 +35,6 @@ function addStory() {
     let addTitle = document.getElementById("addTitle");
     let addTxt = document.getElementById("addTxt");
     let stars = document.querySelector('input[name="star"]:checked');
-    // let addBtn = document.getElementById("addBtn");
 
     // Check if both addTxt and stars are available
     if (addTitle && addTxt && stars) {
@@ -53,6 +55,25 @@ function addStory() {
 }
 document.getElementById("addBtn").addEventListener("click", addStory);
 
+
+function deleteDiary(diaryId) {
+    var userId = firebase.auth().currentUser.uid; // Assuming user is logged in
+    var db = firebase.firestore();
+    db.collection("users").doc(userId).collection("diaries").doc(diaryId).delete()
+        .then(() => {
+            console.log("Document successfully deleted!");
+            // Optionally, refresh the list of diaries displayed
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        });
+}
+
+document.addEventListener('click', function(e) {
+    if (e.target && e.target.matches('.delete-btn')) {
+        const diaryId = e.target.getAttribute('data-diary-id');
+        deleteDiary(diaryId);
+    }
+});
 
 function showStories() {
     window.location.href = "/diarylist.html"; // Redirect to diarylist.html
