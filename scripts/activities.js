@@ -45,9 +45,9 @@ if (user) {
                     let elementContent;
 
                     if (data.status === "completed") {
-                        elementContent = `<span style="color: red;">${activity.name} - Completed</span>`;
+                        elementContent = `<span style="color: #006400;">${activity.name} - Completed</span>`;
                     } else if (data.status === "in progress") {
-                        elementContent = `<a href="${activity.url}" style="color: orange;">${activity.name} - In Progress</a>`;
+                        elementContent = `<a href="${activity.url}" style="color: #FFA500;">${activity.name} - In Progress</a>`;
                         allActivitiesCompleted = false;
                     } else {
                         elementContent = `<a href="${activity.url}">${activity.name}</a>`;
