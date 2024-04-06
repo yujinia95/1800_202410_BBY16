@@ -29,7 +29,7 @@ button {
 
 body {
   background-color: lightblue;
-  font-family: "Fraunces", serif;
+  font-family: "Ubuntu", sans-serif;
   font-optical-sizing: auto;
   font-weight: 300;
   font-style: normal;
@@ -47,10 +47,4 @@ body {
 .btn btn-primary{
   align-items: center;
   justify-items: center;
-}
-
-body{
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 300;
-  font-style: normal;
 }
