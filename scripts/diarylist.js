@@ -4,16 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const db = firebase.firestore();
     const auth = firebase.auth();
 
-    // Masonry Layout Initialization
-    const masonryGrid = document.querySelector('.row[data-masonry]');
-    if (masonryGrid) {
-        new Masonry(masonryGrid, {
-            itemSelector: '.col',
-            columnWidth: '.col',
-            percentPosition: true
-        });
-    }
-
     // Function to delete a diary entry
     function deleteDiary(userId, diaryId) {
         db.collection('users').doc(userId).collection('diaries').doc(diaryId).delete().then(() => {
@@ -53,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-     // Function to fetch and display diaries
+    // Function to fetch and display diaries
     function fetchAndDisplayDiaries(userId) {
         const diariesRef = db.collection('users').doc(userId).collection('diaries');
         diariesRef.get().then(querySnapshot => {
@@ -69,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 const diaryHtml = `
                     <div class="col-md-4 col-sm-6 mb-4"> <!-- Adjusted for 3 columns per row on medium devices -->
                         <div class="card h-100">
-                            <!-- Placeholder for future image functionality -->
                             <div class="card-body">
                                 <h5 class="card-title">${diary.title || 'No Title'}</h5>
                                 <p class="card-text">${diary.content}</p>
