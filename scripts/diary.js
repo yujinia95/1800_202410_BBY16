@@ -30,21 +30,23 @@ function addStoryToFirestore(addTitle, addTxt, stars) {
     });
 }
 
+
 function addStory() {
-    // If user adds a story, add it to Firestore
+
     let addTitle = document.getElementById("addTitle");
     let addTxt = document.getElementById("addTxt");
     let stars = document.querySelector('input[name="star"]:checked');
 
     // Check if both addTxt and stars are available
     if (addTitle && addTxt && stars) {
+        // If user adds a story, add it to each title, body, star in Firestore
         addStoryToFirestore(addTitle, addTxt, stars)
             .then(function (docRef) {
                 addTitle.value = ""; // Clear title field after adding
                 addTxt.value = ""; // Clear input field after adding
                 if (stars) stars.checked = false; // Clear the selected star
-                window.location.href = "/diarylist.html"; // Redirect to diarythanks.html
-                alert("Diary saved successfully! Great Job!")
+                window.location.href = "/diarylist.html"; // Redirect to diarylist.html
+                alert("Diary saved successfully! Great Job!") // Show pop-up message
             })
             .catch(function (error) {
                 console.error("Error adding document: ", error);
@@ -53,21 +55,22 @@ function addStory() {
         console.error("Title, Text and/or stars not available.");
     }
 }
+//if user click the button that has 'addbtn' ID, addstory function activates
 document.getElementById("addBtn").addEventListener("click", addStory);
 
-
+// 
 function deleteDiary(diaryId) {
     var userId = firebase.auth().currentUser.uid; // Assuming user is logged in
     var db = firebase.firestore();
     db.collection("users").doc(userId).collection("diaries").doc(diaryId).delete()
         .then(() => {
             console.log("Document successfully deleted!");
-            // Optionally, refresh the list of diaries displayed
         }).catch((error) => {
             console.error("Error removing document: ", error);
         });
 }
 
+// If user delte a story, delete it from Firestore
 document.addEventListener('click', function(e) {
     if (e.target && e.target.matches('.delete-btn')) {
         const diaryId = e.target.getAttribute('data-diary-id');
