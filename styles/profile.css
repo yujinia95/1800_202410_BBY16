@@ -72,7 +72,8 @@ span {
     border: 1px solid #eee; 
     box-sizing: border-box; 
     padding: 10px 0;
-    height: 10vh;
+    height: 15vh;
+    
 }
 
 .calendar-body .dates div:hover {
@@ -87,9 +88,18 @@ span {
     
 }
 
-
 #logout {
+    display: flex;
+    width: 40vh;
     padding: 10px;
     margin: 10px;
     background-color: #eeca84;
+    justify-content: center;
+    
 }
+
+p {
+    font-size: small;
+}
+  
+  
