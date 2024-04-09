@@ -30,9 +30,9 @@ function addStoryToFirestore(addTitle, addTxt, stars) {
     });
 }
 
-
+// add user's new diary
 function addStory() {
-
+    // gather user input for each sectors
     let addTitle = document.getElementById("addTitle");
     let addTxt = document.getElementById("addTxt");
     let stars = document.querySelector('input[name="star"]:checked');
@@ -58,7 +58,7 @@ function addStory() {
 //if user click the button that has 'addbtn' ID, addstory function activates
 document.getElementById("addBtn").addEventListener("click", addStory);
 
-// 
+// delete user's diary
 function deleteDiary(diaryId) {
     var userId = firebase.auth().currentUser.uid; // Assuming user is logged in
     var db = firebase.firestore();
@@ -70,7 +70,8 @@ function deleteDiary(diaryId) {
         });
 }
 
-// If user delte a story, delete it from Firestore
+// If user clicks the button which has a 'delete-btn' class,
+// delete a story from Firestore.
 document.addEventListener('click', function(e) {
     if (e.target && e.target.matches('.delete-btn')) {
         const diaryId = e.target.getAttribute('data-diary-id');
