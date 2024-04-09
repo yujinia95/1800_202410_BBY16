@@ -51,36 +51,44 @@
     <!-- footer -->
     <div class="footer-class"></div>
 
-
     <!-- JS connects to skeleton-->
     <script src="/scripts/firebaseAPI.js"></script>
     <script src="/scripts/footer.js"></script>
     <script src="/scripts/skeleton.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Creating function for uploading image and nevigate to main.html
             function uploadImageAndNavigateToNext9() {
                 const userId = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
                 const fileInput = document.getElementById('formFileMultiple9');
+                // Obtain the first file that user selected
                 const file = fileInput.files[0];
                 const activityName = "Watching Movie";
-        
+                
+                // If current user exist, and options are selected 
                 if (file && userId) {
+                    // Setting up the firebase path
                     const storageRef = firebase.storage().ref();
                     const filePath = `activities/${userId}/${activityName}_${Date.now()}`;
                     const imageRef = storageRef.child(filePath);
                     const uploadTask = imageRef.put(file);
-        
+                    
+                    // Checking process of uploading image in firebase.
                     uploadTask.on('state_changed',
                         (snapshot) => {
                             
                         },
                         (error) => {
+                            //error check
                             console.error("Error during upload:", error);
                         },
                         () => {
+                            //Requests the URL for the image file to upload in firebase.
                             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                             
+                                // Getting info of collection,docs,sub collection.
                                 const activitiesRef = db.collection('users').doc(userId).collection('activities');
+                            // Updating documents(field) from sub-collection in firestore.
+                                //Request to obtain info with matched key value in a firestore and return it.
                                 activitiesRef.where("activityName", "==", activityName).get().then((querySnapshot) => {
                                     if (!querySnapshot.empty) {
                                       
@@ -88,10 +96,12 @@
                                         activityDocRef.update({
                                             status: "completed",
                                             imageUrl: downloadURL 
+                                        // after change the status, print the result and nevigate to next page.
                                         }).then(() => {
                                             console.log('Activity marked as completed with image URL:', downloadURL);
                                             
                                             window.location.href = "/mindfullness_activity/mnfn_afterSubmit.html";
+                                        // Catch error 
                                         }).catch((error) => {
                                             console.error('Error updating activity status:', error);
                                         });
