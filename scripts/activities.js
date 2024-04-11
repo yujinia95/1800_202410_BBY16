@@ -1,3 +1,4 @@
+//Storing keys with keys' values. This helps to find each activites find its own html.
 const activitiesInfo = {
     walking: { name: "Mindful Walking", url: "/mindfullness_activity/mnfn_walking.html" },
     adventure: { name: "Adventure new cafe & restaurant", url: "/mindfullness_activity/mnfn_adventure.html" },
@@ -19,37 +20,49 @@ function fetchAndDisplayActivities() {
 firebase.auth().onAuthStateChanged(function(user) {
 if (user) {
     const userId = user.uid;
+    // Limits the results as 3 entries from users(Collection),user.UID(docutment),activities(subcollection).fields.
+    // This one to get user's recent 3 activities.
     const activitiesRef = db.collection('users').doc(userId).collection('activities').orderBy("timestamp", "desc").limit(3);
 
     activitiesRef.get().then(snapshot => {
+        //If activities' documents are empty in activities subcollection
         if (snapshot.empty) {
-            console.log('No activities found.');
             document.getElementById('submitBtn').style.display = 'none';
+            //Display challenge button (This button nevigates to choosing activity html)
             document.getElementById('challengesButton').style.display = 'block'; // Show if no activities
             document.getElementById('clear-button').style.display = 'none'; // Show if no activities
 
             return;
         }
-
+        //If all activities are completed,
         let allActivitiesCompleted = true;
         let activitiesCount = 0; // Track the number of activities
 
+        //Iterating each document in the snapshot
         snapshot.docs.forEach((doc, index) => {
             activitiesCount++; // Increment for each activity found
+            // Taking current document
             const data = doc.data();
+            // Finding a HTML element that matches to the current activity
             const activityElement = document.getElementById(`challenge${index + 1}`);
 
+            //If the avobe HTML element exsist,
             if (activityElement) {
+                //Find activity details from above activitiesInfo(Object).
                 const activity = activitiesInfo[doc.id];
                 if (activity) {
                     let elementContent;
-
+                    // If fields status chage to "completed"
                     if (data.status === "completed") {
+                        //Activitiy colour chages
                         elementContent = `<span style="color: #006400;">${activity.name} - Completed</span>`;
+                    // If still in progress,
                     } else if (data.status === "in progress") {
+                        //Activitiy colour changes
                         elementContent = `<a href="${activity.url}" style="color: #FFA500;">${activity.name} - In Progress</a>`;
                         allActivitiesCompleted = false;
                     } else {
+                        // If activity not started, link to activity page itself.
                         elementContent = `<a href="${activity.url}">${activity.name}</a>`;
                         allActivitiesCompleted = false;
                     }
@@ -61,16 +74,16 @@ if (user) {
                 }
             }
         });
-
+        ////This part updates buttons whether okay to appear or not depends on situation
         const journalButton = document.getElementById('submitBtn');
         const challengesButton = document.getElementById('challengesButton');
-
+        //If activity in subcollection are 3,
         if (activitiesCount === 3) {
             challengesButton.style.display = 'none'; // Hide challenges button if 3 activities are displayed
         } else {
             challengesButton.style.display = 'block'; // Otherwise, show it
         }
-
+        //If all 3 activities are completed and activities in subcollection are 3,
         if (allActivitiesCompleted && activitiesCount === 3) {
             journalButton.style.display = 'block'; // Show only if all activities are completed and 3 activities are displayed
         } else {
@@ -84,7 +97,7 @@ if (user) {
 }
 });
 }
-
+//This function nevigate to diary html.
 function setupJournalButtonEventListener() {
 const journalButton = document.getElementById('submitBtn');
 journalButton.addEventListener('click', function() {

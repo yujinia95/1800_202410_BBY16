@@ -60,18 +60,25 @@
     <script>
     //Uploading Image in Firestore for reading activity
         document.addEventListener('DOMContentLoaded', function () {
+            //Function handling image upload
             function uploadImageAndNavigateToNext6() {
+                //Checking current user if they are logged in
                 const userId = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
                 const fileInput = document.getElementById('formFileMultiple6');
+                //Getting the first file chosen (index 0 = first file)
                 const file = fileInput.files[0];
                 const activityName = "Exercise";
         
+                //If user is logged in and file is uploaded,
                 if (file && userId) {
+                    //Setting up the firebase path
                     const storageRef = firebase.storage().ref();
+                    //file path to save image in the firebase.
                     const filePath = `activities/${userId}/${activityName}_${Date.now()}`;
                     const imageRef = storageRef.child(filePath);
                     const uploadTask = imageRef.put(file);
         
+                    //Monitoring if the uploading task is going well or not.
                     uploadTask.on('state_changed',
                         (snapshot) => {
                         },
@@ -79,16 +86,24 @@
                             console.error("Error during upload:", error);
                         },
                         () => {
+                            //If the uploading process successfully went well, get download URL of image file.
                             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                                //Information of subcollection in 'users' collection
                                 const activitiesRef = db.collection('users').doc(userId).collection('activities');
+                                //Finding matched activityName in the activities subcollection in Firestore
                                 activitiesRef.where("activityName", "==", activityName).get().then((querySnapshot) => {
+                                    //If there is something uploaded in the query
                                     if (!querySnapshot.empty) {
+                                        //First document in subcollection
                                         const activityDocRef = activitiesRef.doc(querySnapshot.docs[0].id);
+                                        //Update the status to completed!
                                         activityDocRef.update({
                                             status: "completed",
-                                            imageUrl: downloadURL 
+                                            imageUrl: downloadURL
+                                        //If the status is updated to 'completed', then    
                                         }).then(() => {
                                             console.log('Activity marked as completed with image URL:', downloadURL);
+                                            // Nevigate to After submission page.
                                             window.location.href = "/mindfullness_activity/mnfn_afterSubmit.html";
                                         }).catch((error) => {
                                             console.error('Error updating activity status:', error);
