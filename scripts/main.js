@@ -91,12 +91,7 @@ function clearActivitiesCollection() {
                 snapshot.forEach(doc => {
                     // Assuming there's a timestamp field you're comparing against
                     const docDate = doc.data().timestamp?.toDate()?.toLocaleDateString();
-<<<<<<< HEAD
-                    alert(docDate);
-                    console.log("doc date" + docDate);
-=======
-                    console.log (docDate + " " + yesterdayString);
->>>>>>> c31f140b8eb819f80e251b163bbbf3fffe4e9787
+
                     if (docDate > yesterdayString) {
                         // Add the delete promise to the array
                         deletePromises.push(doc.ref.delete().then(() => {
@@ -110,7 +105,7 @@ function clearActivitiesCollection() {
             })
             .then(() => {
                 // Reload the page once all activities are cleared
-                //reloadPage();
+                reloadPage();
             })
             .catch(error => {
                 console.error('Error clearing activities collection:', error);
