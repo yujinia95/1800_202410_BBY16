@@ -206,20 +206,24 @@
         };
         //Collecting selected activites from checkboxes
         function handleSelection() {
+            //Getting all checkboxes but only checked boxes
             const checkboxes = document.querySelectorAll('input[name="listGroupRadio"]');
             const selectedActivities = Array.from(checkboxes).filter(checkbox => checkbox.checked);
-
+            // Alert if user choose less than 3 activities.
             if (selectedActivities.length > 3) {
                 alert('You can only select up to 3 activities.');
                 return;
             }
-
+            // Checking if user is signed in using Firebase
             if (firebase.auth().currentUser) {
                 const userId = firebase.auth().currentUser.uid;
                 const userDocRef = db.collection('users').doc(userId);
                 const activitiesCollectionRef = userDocRef.collection('activities');
 
+                // If three activites are selected, 
                 if (selectedActivities.length === 3) {
+                    // Put them in firebase sub collection as documents, with activities name and 
+                    // status of activities, timestamps, and activitiy html url
                     const promises = selectedActivities.map((activity) => {
                         const activityURL = new URL(activity.value, window.location.origin);
                         const pathSegments = activityURL.pathname.split('/');
@@ -230,12 +234,14 @@
                             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                             url: activity.value
                         };
-
+                        //Create new documents in subcollection
                         return activitiesCollectionRef.doc(activityKey).set(activityData);
                     });
 
+                    // Execute all above code for firebase operations.
                     Promise.all(promises).then(() => {
                         console.log("All activities added/updated successfully.");
+                        //After choose activities, nevigate to main.html
                                 window.location.href = '/main.html';
                     }).catch(error => {
                         console.error('Error adding/updating activities:', error);
@@ -247,7 +253,7 @@
                 alert('Please sign in to save your selections.');
             }
         }
-
+        //Event listenr to the button.
         document.getElementById('lezChallenge').addEventListener('click', handleSelection);
 
     </script>

@@ -15,8 +15,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"/>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>   
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <!-- stylesheet from bootstrap-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <!-- stylesheet-->
@@ -28,7 +28,7 @@
 <body>
     <!-- nav bar-->
     <script src="/scripts/navbar.js"></script>
-      <div class="navbar-placeholder"></div>
+    <div class="navbar-placeholder"></div>
 
     <!-- Header for choosing activity-->
     <h1 class="textAlign1">What is your favourite genre?</h1>
@@ -40,12 +40,13 @@
     <br>
     <br>
     <div class="mb-3">
-        <label for="formFileMultiple" class="form-label" style="text-align: center;">Feel free to share your challenge experience with us</label>
+        <label for="formFileMultiple" class="form-label" style="text-align: center;">Feel free to share your challenge
+            experience with us</label>
         <input class="form-control" type="file" id="formFileMultiple9" multiple accept="image/*">
     </div>
     <!-- button for entering next page-->
     <div class="d-flex justify-content-center">
-            <button type="button" class="btn btn-outline-secondary" id="submitBtn9">Submit</button>
+        <button type="button" class="btn btn-outline-secondary" id="submitBtn9">Submit</button>
     </div>
 
     <!-- footer -->
@@ -56,52 +57,54 @@
     <script src="/scripts/footer.js"></script>
     <script src="/scripts/skeleton.js"></script>
     <script>
+        //Uploading Image in Firestore for reading activity
         document.addEventListener('DOMContentLoaded', function () {
-            // Creating function for uploading image and nevigate to main.html
+            //Function handling image upload
             function uploadImageAndNavigateToNext9() {
+                //Checking current user if they are logged in
                 const userId = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
                 const fileInput = document.getElementById('formFileMultiple9');
-                // Obtain the first file that user selected
+                //Getting the first file chosen (index 0 = first file)
                 const file = fileInput.files[0];
                 const activityName = "Watching Movie";
-                
-                // If current user exist, and options are selected 
+
+                //If user is logged in and file is uploaded,
                 if (file && userId) {
-                    // Setting up the firebase path
+                    //Setting up the firebase path
                     const storageRef = firebase.storage().ref();
+                    //file path to save image in the firebase.
                     const filePath = `activities/${userId}/${activityName}_${Date.now()}`;
                     const imageRef = storageRef.child(filePath);
                     const uploadTask = imageRef.put(file);
-                    
-                    // Checking process of uploading image in firebase.
+
+                    //Monitoring if the uploading task is going well or not.
                     uploadTask.on('state_changed',
                         (snapshot) => {
-                            
+
                         },
                         (error) => {
-                            //error check
                             console.error("Error during upload:", error);
                         },
+                        //If the uploading process successfully went well, get download URL of image file.
                         () => {
-                            //Requests the URL for the image file to upload in firebase.
                             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                                // Getting info of collection,docs,sub collection.
+                                //Information of subcollection in 'users' collection
                                 const activitiesRef = db.collection('users').doc(userId).collection('activities');
-                            // Updating documents(field) from sub-collection in firestore.
-                                //Request to obtain info with matched key value in a firestore and return it.
+                                //Finding matched activityName in the activities subcollection in Firestore
                                 activitiesRef.where("activityName", "==", activityName).get().then((querySnapshot) => {
+                                    //If there is something uploaded in the query
                                     if (!querySnapshot.empty) {
-                                      
+                                        //First document in subcollection
                                         const activityDocRef = activitiesRef.doc(querySnapshot.docs[0].id);
+                                        //Update the status to completed!
                                         activityDocRef.update({
                                             status: "completed",
-                                            imageUrl: downloadURL 
-                                        // after change the status, print the result and nevigate to next page.
+                                            imageUrl: downloadURL
+                                        //If the status is updated to 'completed', then
                                         }).then(() => {
                                             console.log('Activity marked as completed with image URL:', downloadURL);
-                                            
+                                            // Nevigate to After submission page.
                                             window.location.href = "/mindfullness_activity/mnfn_afterSubmit.html";
-                                        // Catch error 
                                         }).catch((error) => {
                                             console.error('Error updating activity status:', error);
                                         });
@@ -118,7 +121,7 @@
                     console.error("No file selected or user not logged in");
                 }
             }
-        
+
             document.getElementById('submitBtn9').addEventListener('click', uploadImageAndNavigateToNext9);
         });
     </script>

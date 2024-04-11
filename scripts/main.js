@@ -67,14 +67,18 @@ function readQuote(day) {
 function clearActivitiesCollection() {
     const user = firebase.auth().currentUser; // Get the currently authenticated user
 
-    if (user) {
+    if (user) { 
+         //  alert('insideClearbutton');
+
         const userRef = db.collection('users').doc(user.uid); // Reference to the user's document
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
         const month = yesterday.getMonth() + 1; // Adding 1 to adjust the month index
         const day = yesterday.getDate();
         const year = yesterday.getFullYear();
-        const yesterdayString = `${month}-${day}-${year}`;
+        //const yesterdayString = `${month}-${day}-${year}`;
+        const yesterdayString = yesterday.toLocaleDateString();
+        
         console.log("yesterday: " + yesterdayString);
 
         // Path to the user's activities needs to be specific to the user
@@ -87,8 +91,12 @@ function clearActivitiesCollection() {
                 snapshot.forEach(doc => {
                     // Assuming there's a timestamp field you're comparing against
                     const docDate = doc.data().timestamp?.toDate()?.toLocaleDateString();
+<<<<<<< HEAD
                     alert(docDate);
                     console.log("doc date" + docDate);
+=======
+                    console.log (docDate + " " + yesterdayString);
+>>>>>>> c31f140b8eb819f80e251b163bbbf3fffe4e9787
                     if (docDate > yesterdayString) {
                         // Add the delete promise to the array
                         deletePromises.push(doc.ref.delete().then(() => {
