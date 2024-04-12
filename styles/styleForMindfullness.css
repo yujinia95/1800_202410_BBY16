@@ -1,5 +1,5 @@
 .textAlign1 {
-    margin-top: 10%;
+    margin-top: 25%;
     padding-bottom: 4%;
     font-size: 28px;
     display: flex;
@@ -8,16 +8,17 @@
 }
 .textAlign2 {
     padding-bottom: 5%;
-    font-size: 25px;
+    font-size: 23px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .textAlign3 {
-    font-size: 18px;
+    font-size: 13px;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bold;
 }
 .form-label{
     display: flex;

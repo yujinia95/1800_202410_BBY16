@@ -32,7 +32,7 @@
     .textAlign1 {
         margin-top: 3%;
         padding-bottom: 4%;
-        font-size: 28px;
+        font-size: 20px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -49,6 +49,19 @@
         align-items: flex-end;
         margin-bottom: 10px;
     }
+    .form-check-label {
+    flex: 1; /* Allow label to take up remaining space */
+    overflow-wrap: break-word; /* Allow long text to wrap */
+    text-align: center; /* Center-align the label text */
+
+}
+
+.form-check-input {
+    margin-right: 10px; /* Add some space between checkbox and label */
+    flex: none; /* Prevent checkbox from taking up additional space */
+    width: 20px; /* Set a fixed width for the checkbox */
+}
+
 </style>
 
 <body>
@@ -57,118 +70,120 @@
     <div class="navbar-placeholder"></div>
 
     <!-- Header for choosing activity-->
-    <h1 class="textAlign1"> Challenge yourself: Pick 3 activities </h1>
+    <h1 class="textAlign1"> Challenge yourself! Please pick 3 activities</h1>
 
     <!-- Activity List-->
+    <div class="form-container" style="max-height: 400px; overflow-y: auto; margin-right: 17%;" >
+        <form id="myForm" class="list-group-item">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                    value="/mindfullness_activity/mnfn_walking.html" id="flexCheckChecked1" id="firstRadio">
+                <label class="form-check-label" for="flexCheckChecked1">
+                    Mindful Walking
+                </label>
 
-    <form id="myForm" class="list-group-item">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="listGroupRadio"
-                value="/mindfullness_activity/mnfn_walking.html" id="flexCheckChecked1" id="firstRadio">
-            <label class="form-check-label" for="flexCheckChecked1">
-                Mindful Walking
-            </label>
-
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="listGroupRadio"
-                value="/mindfullness_activity/mnfn_adventure.html" id="flexCheckChecked2" id="secondRadio">
-            <label class="form-check-label" for="flexCheckChecked2">
-                Explore a new cafe or restaurant
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="listGroupRadio"
-                value="/mindfullness_activity/mnfn_painting.html" id="flexCheckChecked3" id="thirdRadio">
-            <label class="form-check-label" for="flexCheckChecked3">
-                Painting
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="listGroupRadio"
-                value="/mindfullness_activity/mnfn_photography.html" id="flexCheckChecked4" id="fourthRadio">
-            <label class="form-check-label" for="flexCheckChecked4">
-                Photography
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="listGroupRadio"
-                value="/mindfullness_activity/mnfn_cooking.html" id="flexCheckChecked5" id="fifthRadio">
-            <label class="form-check-label" for="flexCheckChecked5">
-                Cooking & Baking
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="listGroupRadio"
-                value="/mindfullness_activity/mnfn_reading.html" id="flexCheckChecked6" id="sixthRadio">
-            <label class="form-check-label" for="flexCheckChecked6">
-                Reading
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="listGroupRadio"
-                value="/mindfullness_activity/mnfn_exercise.html" id="flexCheckChecked7" id="seventhRadio">
-            <label class="form-check-label" for="flexCheckChecked7">
-                Exercise
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="listGroupRadio"
-                value="/mindfullness_activity/mnfn_puzzles.html" id="flexCheckChecked8" id="eighthRadio">
-            <label class="form-check-label" for="flexCheckChecked8">
-                Puzzles
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="listGroupRadio"
-                value="/mindfullness_activity/mnfn_watching_movie.html" id="flexCheckChecked9" id="ninthRadio">
-            <label class="form-check-label" for="flexCheckChecked9">
-                Watching Movie
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="listGroupRadio"
-                value="/mindfullness_activity/mnfn_volunteer.html" id="flexCheckChecked10" id="tenthRadio">
-            <label class="form-check-label" for="flexCheckChecked10">
-                Volunteer
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="listGroupRadio"
-                value="/mindfullness_activity/mnfn_visit_family.html" id="flexCheckChecked11" id="eleventhRadio">
-            <label class="form-check-label" for="flexCheckChecked11">
-                Spend time with loved ones 
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="listGroupRadio"
-                value="/mindfullness_activity/mnfn_meditation.html" id="flexCheckChecked12" id="twelfthRadio">
-            <label class="form-check-label" for="flexCheckChecked12">
-                Meditation
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="listGroupRadio"
-                value="/mindfullness_activity/mnfn_discover_music.html" id="flexCheckChecked13" id="thirteenthRadio">
-            <label class="form-check-label" for="flexCheckChecked13">
-                Discover new music
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="listGroupRadio"
-                value="/mindfullness_activity/mnfn_exhibition.html" id="flexCheckChecked14" id="fourteenthRadio">
-            <label class="form-check-label" for="flexCheckChecked14">
-                Visit an exhibition
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="listGroupRadio"
-                value="/mindfullness_activity/mnfn_cleaning.html" id="flexCheckChecked15" id="fifteenthRadio">
-            <label class="form-check-label" for="flexCheckChecked15">
-                Clean
-            </label>
-        </div>
-    </form>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                    value="/mindfullness_activity/mnfn_adventure.html" id="flexCheckChecked2" id="secondRadio">
+                <label class="form-check-label" for="flexCheckChecked2">
+                    Try new cafe or restaurant
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                    value="/mindfullness_activity/mnfn_painting.html" id="flexCheckChecked3" id="thirdRadio">
+                <label class="form-check-label" for="flexCheckChecked3">
+                    Painting
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                    value="/mindfullness_activity/mnfn_photography.html" id="flexCheckChecked4" id="fourthRadio">
+                <label class="form-check-label" for="flexCheckChecked4">
+                    Photography
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                    value="/mindfullness_activity/mnfn_cooking.html" id="flexCheckChecked5" id="fifthRadio">
+                <label class="form-check-label" for="flexCheckChecked5">
+                    Cooking & Baking
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                    value="/mindfullness_activity/mnfn_reading.html" id="flexCheckChecked6" id="sixthRadio">
+                <label class="form-check-label" for="flexCheckChecked6">
+                    Reading
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                    value="/mindfullness_activity/mnfn_exercise.html" id="flexCheckChecked7" id="seventhRadio">
+                <label class="form-check-label" for="flexCheckChecked7">
+                    Exercise
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                    value="/mindfullness_activity/mnfn_puzzles.html" id="flexCheckChecked8" id="eighthRadio">
+                <label class="form-check-label" for="flexCheckChecked8">
+                    Puzzles
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                    value="/mindfullness_activity/mnfn_watching_movie.html" id="flexCheckChecked9" id="ninthRadio">
+                <label class="form-check-label" for="flexCheckChecked9">
+                    Watching Movie
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                    value="/mindfullness_activity/mnfn_volunteer.html" id="flexCheckChecked10" id="tenthRadio">
+                <label class="form-check-label" for="flexCheckChecked10">
+                    Volunteer
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                    value="/mindfullness_activity/mnfn_visit_family.html" id="flexCheckChecked11" id="eleventhRadio">
+                <label class="form-check-label" for="flexCheckChecked11">
+                    Spend time with loved ones
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                    value="/mindfullness_activity/mnfn_meditation.html" id="flexCheckChecked12" id="twelfthRadio">
+                <label class="form-check-label" for="flexCheckChecked12">
+                    Meditation
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                    value="/mindfullness_activity/mnfn_discover_music.html" id="flexCheckChecked13"
+                    id="thirteenthRadio">
+                <label class="form-check-label" for="flexCheckChecked13">
+                    Discover new music
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                    value="/mindfullness_activity/mnfn_exhibition.html" id="flexCheckChecked14" id="fourteenthRadio">
+                <label class="form-check-label" for="flexCheckChecked14">
+                    Visit an exhibition
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listGroupRadio"
+                    value="/mindfullness_activity/mnfn_cleaning.html" id="flexCheckChecked15" id="fifteenthRadio">
+                <label class="form-check-label" for="flexCheckChecked15">
+                    Cleaning
+                </label>
+            </div>
+        </form>
+    </div>
 
     <br>
     <!-- Initiate activity button-->
@@ -243,7 +258,7 @@
                     Promise.all(promises).then(() => {
                         console.log("All activities added/updated successfully.");
                         //After choose activities, nevigate to main.html
-                                window.location.href = '/main.html';
+                        window.location.href = '/main.html';
                     }).catch(error => {
                         console.error('Error adding/updating activities:', error);
                     });
