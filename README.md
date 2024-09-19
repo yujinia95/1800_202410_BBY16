@@ -7,7 +7,7 @@ This browser based web application to ...
 ## 2. Names of Contributors
 =======
 List team members and/or short bio's here... 
-* ...Yujin Jeong >_<
+* Yujin Jeong
 * Anil Bronson
 * Farzad Farzingit
 * _Yuho_Lim
